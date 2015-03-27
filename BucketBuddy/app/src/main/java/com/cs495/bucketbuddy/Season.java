@@ -34,6 +34,13 @@ public abstract class Season {
     }
 
     /**
+     * Returns the list of games in the season.
+     *
+     * @return the list of games in the season
+     */
+    public ArrayList<Game> getGames() { return games; }
+
+    /**
      * Returns the current game (last game in the season).
      *
      * @return the last game in the season

@@ -40,7 +40,8 @@ public abstract class StatEntity {
     /**
      * Set the StatEntity's database id.  NOTE: this method should only be called
      * by the DatabaseHelper during the process of inserting the entity into the
-     * database for the first time.
+     * database for the first time.  Using it any other time will create a
+     * conflict between the object and its counterpart in the database.
      *
      * @param id the new id of the entity
      */
@@ -93,18 +94,22 @@ public abstract class StatEntity {
      * @param name the name of the statistic
      * @return the current value of the statistic (possibly null)
      */
-    public Object getGameStat(String name) {
-        return getCurrentGame().getStat(name);
-
-    }
+    public Object getGameStat(String name) { return getCurrentGame().getStat(name); }
 
     /**
      * Adds a new season to the list of seasons.
+     *
      * @param season the season to add
      */
     public void addSeason(Season season) {
         seasons.add(season);
     }
+
+    /** Returns all of the entity's seasons.
+     *
+     * @return a list of all the entity's seasons
+     */
+    public ArrayList<Season> getSeasons() { return seasons; }
 
     /**
      * Returns a nested array containing the value of the given stat for every game in

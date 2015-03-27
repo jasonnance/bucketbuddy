@@ -1,6 +1,7 @@
 package com.cs495.bucketbuddy;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Game is an abstract class providing functionality that is common to
@@ -34,4 +35,6 @@ public abstract class Game {
     public void setStat(String name, Object value) {
         stats.put(name,value);
     }
+
+    public Set<String> getAllStatNames() { return stats.keySet(); }
 }
