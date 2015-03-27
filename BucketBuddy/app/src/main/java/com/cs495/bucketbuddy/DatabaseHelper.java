@@ -1,9 +1,23 @@
 package com.cs495.bucketbuddy;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOError;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.Map;
+
+/**
+ * Provides the interface into the database, translating back and forth
+ * between the Java objects representing Players and Teams and the data about them
+ * in the database.
+ */
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "bucketbuddy.db";
@@ -13,6 +27,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, factory, DATABASE_VERSION);
     }
 
+    /**
+     * Creates all the tables and constraints for the Bucket Buddy database
+     * if not already present on the device.
+     * @param db the pointer to the database
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         if (!db.isReadOnly()) {
@@ -59,6 +78,64 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion,
                           int newVersion) {
+    }
 
+    public void addStatEntity(StatEntity entity) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // Take care of the StatEntity table first
+        String type = (entity instanceof Player) ? "'player'" : "'team'";
+        ContentValues values = new ContentValues();
+        values.put("type", type);
+
+        // We need the id the database gave our new entity
+        long newId = db.insert("StatEntity", null, values);
+
+        // Add the entity's attributes to the StatEntityAttr table
+        for (String attrName : entity.getAllAttrNames()) {
+            ContentValues attrValues = new ContentValues();
+            attrValues.put("attrName", attrName);
+            attrValues.put("attrVal", serialize(entity.getAttr(attrName)));
+            attrValues.put("entityID", newId);
+            db.insert("StatEntityAttr", null, attrValues);
+        }
+        // TODO
+        //for (Season season : entity)
+
+
+    }
+
+    /**
+     * Turns the given object into a string for storage in the database.
+     *
+     * @param obj the object to be serialized
+     * @return the string representation of the object
+     */
+    private String serialize(Object obj) {
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            ObjectOutputStream so = new ObjectOutputStream(bo);
+            so.writeObject(obj);
+            so.flush();
+            return bo.toString();
+        } catch (IOException e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+
+    private Object deserialize(String strObj) {
+        try {
+            byte b[] = strObj.getBytes();
+            ByteArrayInputStream bi = new ByteArrayInputStream(b);
+            ObjectInputStream si = new ObjectInputStream(bi);
+            return si.readObject();
+        } catch (IOException e) {
+            System.out.println(e);
+            return null;
+        } catch (ClassNotFoundException e) {
+            System.out.println(e);
+            return null;
+        }
     }
 }
