@@ -1,5 +1,7 @@
 package com.cs495.bucketbuddy;
 
+import android.support.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -21,10 +23,15 @@ public abstract class StatEntity {
      *
      * @return the current game
      */
+    @Nullable
     protected Game getCurrentGame() {
-        Season currentSeason = seasons.get(seasons.size()-1);
-        Game currentGame = currentSeason.getCurrentGame();
-        return currentGame;
+        if (seasons.size() > 0) {
+            Season currentSeason = seasons.get(seasons.size() - 1);
+            return currentSeason.getCurrentGame();
+        }
+        else {
+            return null;
+        }
     }
 
     /**
@@ -55,6 +62,7 @@ public abstract class StatEntity {
      * @param name the name of the attribute
      * @return the current value of the attribute (possibly null)
      */
+    @Nullable
     public Object getAttr(String name) {
         return attrs.get(name);
     }
@@ -84,7 +92,10 @@ public abstract class StatEntity {
      * @param value the new value of the statistic
      */
     public void setGameStat(String name, Object value) {
-        getCurrentGame().setStat(name, value);
+        Game currentGame = getCurrentGame();
+        if (currentGame != null) {
+            currentGame.setStat(name, value);
+        }
     }
 
     /**
@@ -94,7 +105,15 @@ public abstract class StatEntity {
      * @param name the name of the statistic
      * @return the current value of the statistic (possibly null)
      */
-    public Object getGameStat(String name) { return getCurrentGame().getStat(name); }
+    @Nullable
+    public Object getGameStat(String name) {
+        if (getCurrentGame() != null) {
+            return getCurrentGame().getStat(name);
+        }
+        else {
+            return null;
+        }
+    }
 
     /**
      * Adds a new season to the list of seasons.
@@ -119,7 +138,7 @@ public abstract class StatEntity {
      * @return an array containing an array of statistic values for every season
      */
     public ArrayList<ArrayList<Object>> getCareerStat(String name) {
-        ArrayList<ArrayList<Object>> careerStat = new ArrayList<ArrayList<Object>>();
+        ArrayList<ArrayList<Object>> careerStat = new ArrayList<>();
         for (Season season : seasons) {
             careerStat.add(season.getSeasonStat(name));
         }

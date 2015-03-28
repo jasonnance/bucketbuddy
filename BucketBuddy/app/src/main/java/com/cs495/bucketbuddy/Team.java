@@ -9,7 +9,7 @@ import java.util.HashMap;
  */
 public class Team extends StatEntity{
 
-    private ArrayList<Player> players;
+    private ArrayList<Long> playerIds;
 
     /**
      * Initializes a new team with no attributes,
@@ -18,7 +18,7 @@ public class Team extends StatEntity{
     public Team() {
         attrs = new HashMap<String,Object>();
         seasons = new ArrayList<Season>();
-
+        playerIds = new ArrayList<Long>();
     }
 
     /**
@@ -26,17 +26,17 @@ public class Team extends StatEntity{
      *
      * @return a list of all players on the team
      */
-    public ArrayList<Player> getPlayers() {
-        return players;
+    public ArrayList<Long> getPlayerIds() {
+        return playerIds;
     }
 
     /**
-     * Adds the given player to the team.
+     * Adds the given playerId to the team.
      *
-     * @param player the player to add to the team
+     * @param playerId the id of the player to add to the team
      */
-    public void addPlayer(Player player) {
-        players.add(player);
+    public void addPlayerId(long playerId) {
+        playerIds.add(playerId);
     }
 
     /**
@@ -44,10 +44,10 @@ public class Team extends StatEntity{
      * the given player.
      *
      * @param index the index of the player to replace in the players array
-     * @param player the new player
+     * @param playerId the id of the new player
      */
-    public void updatePlayer(int index, Player player) {
-        players.set(index, player);
+    public void updatePlayer(int index, long playerId) {
+        playerIds.set(index, playerId);
     }
 
     /**
@@ -56,7 +56,7 @@ public class Team extends StatEntity{
      * @param index the index (in the players array) of the player to delete
      */
     public void deletePlayer(int index) {
-        players.remove(index);
+        playerIds.remove(index);
     }
 
     /**
@@ -65,6 +65,6 @@ public class Team extends StatEntity{
      * @param season the season to add
      */
     public void addSeason(TeamSeason season) {
-        seasons.add((Season) season);
+        seasons.add(season);
     }
 }

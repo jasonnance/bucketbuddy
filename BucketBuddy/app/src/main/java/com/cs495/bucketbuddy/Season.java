@@ -1,5 +1,7 @@
 package com.cs495.bucketbuddy;
 
+import android.support.annotation.Nullable;
+
 import java.util.ArrayList;
 
 /*
@@ -45,7 +47,13 @@ public abstract class Season {
      *
      * @return the last game in the season
      */
+    @Nullable
     public Game getCurrentGame() {
-        return games.get(games.size()-1);
+        if (games.size() > 0) {
+            return games.get(games.size() - 1);
+        }
+        else {
+            return null;
+        }
     }
 }

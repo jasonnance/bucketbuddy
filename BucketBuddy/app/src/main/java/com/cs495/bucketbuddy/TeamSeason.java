@@ -20,6 +20,6 @@ public class TeamSeason extends Season {
      * @param game the game to add
      */
     public void addGame(TeamGame game) {
-        games.add((Game) game);
+        games.add(game);
     }
 }

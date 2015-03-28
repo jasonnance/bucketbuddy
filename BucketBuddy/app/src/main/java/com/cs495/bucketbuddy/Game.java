@@ -1,5 +1,7 @@
 package com.cs495.bucketbuddy;
 
+import android.support.annotation.Nullable;
+
 import java.util.HashMap;
 import java.util.Set;
 
@@ -17,6 +19,7 @@ public abstract class Game {
      * @param name the name of the statistic to return
      * @return the statistic value if it is in the stats map; otherwise, returns null
      */
+    @Nullable
     public Object getStat(String name) {
         if (stats.containsKey(name)) {
             return stats.get(name);

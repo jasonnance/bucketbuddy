@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.support.annotation.Nullable;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -137,14 +138,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // If the entity is a player, we need to add their team as an attr;
         // otherwise, we need to add the team's players as an attr.
         if (type.equals("player")) {
-            attrValues.put("attrName", "team");
-            attrValues.put("attrVal", serialize(((Player) entity).getTeam()));
+            attrValues.put("attrName", "teamId");
+            attrValues.put("attrVal", serialize(((Player) entity).getTeamId()));
             attrValues.put("entityID", entity.getId());
             db.replace("StatEntityAttr", null, attrValues);
         }
         else {
-            attrValues.put("attrName", "players");
-            attrValues.put("attrVal", serialize(((Team) entity).getPlayers()));
+            attrValues.put("attrName", "playerIds");
+            attrValues.put("attrVal", serialize(((Team) entity).getPlayerIds()));
             attrValues.put("entityID", entity.getId());
             db.replace("StatEntityAttr", null, attrValues);
         }
@@ -211,11 +212,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param entityId the id of the StatEntity to retrieve
      * @return the StatEntity with all attrs, seasons, games, and stats from the database
      */
+    @Nullable
     public StatEntity getStatEntity(long entityId) {
-        /*
-        TODO: account for the fact that teams need to load their players
-         and players need to load their teams
-         */
         SQLiteDatabase db = this.getReadableDatabase();
 
         // Determine whether we're creating a team or a player
@@ -227,7 +225,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         StatEntity entity;
         if (typeCur.moveToFirst()) {
             String type = typeCur.getString(0);
-            entity = (StatEntity) ((type == "player") ? new Player() : new Team());
+            entity = (type.equals("player")) ? new Player() : new Team();
         }
         else { return null; }
         typeCur.close();
@@ -252,7 +250,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<Team> getAllTeams() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        ArrayList<Team> allTeams = new ArrayList<Team>();
+        ArrayList<Team> allTeams = new ArrayList<>();
         Cursor teamFinderCur = db.rawQuery("SELECT entityID FROM StatEntity" +
                 "WHERE type = 'team'", null);
 
@@ -268,6 +266,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     /**
      * Loads all attributes describing the given entity into that entity.
+     * This includes the entity's teamId if the entity is a player or the
+     * entity's playerIds if the entity is a team.
      *
      * @param db the pointer to the database
      * @param entity the entity into which to load attributes
@@ -276,14 +276,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private StatEntity loadAttrs(SQLiteDatabase db, StatEntity entity) {
         Cursor attrCur = db.rawQuery(
                 "SELECT attrName, attrVal FROM StatEntityAttr" +
-                "WHERE entityID =" + String.valueOf(entity.getId()), null);
+                        "WHERE entityID =" + String.valueOf(entity.getId()), null);
         if (attrCur.moveToFirst()) {
             do {
                 String attrName = attrCur.getString(0);
                 String serializedAttrVal = attrCur.getString(1);
                 Object attrVal = deserialize(serializedAttrVal);
 
-                entity.setAttr(attrName, attrVal);
+                switch(attrName) {
+                    // If the entity is a player, we need to set its teamId
+                    case ("teamId"):
+                        ((Player) entity).setTeamId((long) attrVal);
+                        break;
+                    // If the entity is a team, we need to set its playerIds
+                    case ("playerIds"):
+                        for (Long playerId : (ArrayList<Long>) attrVal) {
+                            ((Team) entity).addPlayerId(playerId);
+                        }
+                        break;
+                // Otherwise, this is a normal attribute
+                    default:
+                        entity.setAttr(attrName, attrVal);
+                        break;
+                }
             } while (attrCur.moveToNext());
         }
         attrCur.close();
@@ -304,8 +319,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (seasonCur.moveToFirst()) {
             do {
                 int seasonNumber = seasonCur.getInt(0);
-                Season season = (Season) ((entity instanceof Player) ?
-                        new PlayerSeason() : new TeamSeason());
+                Season season = (entity instanceof Player) ?
+                        new PlayerSeason() : new TeamSeason();
 
                 season = loadGames(db, season, seasonNumber, entity.getId());
                 entity.addSeason(season);
@@ -332,7 +347,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (gameCur.moveToFirst()) {
             do {
                 int gameNumber = gameCur.getInt(0);
-                Game game = (Game) ((season instanceof PlayerSeason) ?
+                Game game = ((season instanceof PlayerSeason) ?
                         new PlayerGame() : new TeamGame());
                 game = loadStats(db, game, gameNumber, seasonNumber, entityId);
                 season.addGame(game);
@@ -353,16 +368,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return the game with all gamestats filled out
      */
     private Game loadStats(SQLiteDatabase db, Game game, int gameNumber, int seasonNumber, long entityId) {
-        Cursor statCur = this.getReadableDatabase().rawQuery("SELECT statName, statVal" +
+        Cursor statCur = db.rawQuery("SELECT statName, statVal" +
                 "FROM GameStat WHERE gameNumber =" + String.valueOf(gameNumber) +
                 "AND seasonNumber =" + String.valueOf(seasonNumber) +
-                "AND entityId =" + String.valueOf(entityId),null);
+                "AND entityId =" + String.valueOf(entityId), null);
         if (statCur.moveToFirst()) {
             do {
                 String statName = statCur.getString(0);
                 String serializedStatVal = statCur.getString(1);
                 Object statVal = deserialize(serializedStatVal);
-                game.setStat(statName,statVal);
+                game.setStat(statName, statVal);
             } while (statCur.moveToNext());
         }
         statCur.close();
@@ -375,6 +390,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param obj the object to be serialized
      * @return the string representation of the object
      */
+    @Nullable
     private String serialize(Object obj) {
         try {
             ByteArrayOutputStream bo = new ByteArrayOutputStream();
@@ -383,11 +399,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             so.flush();
             return bo.toString();
         } catch (IOException e) {
-            System.out.println(e);
             return null;
         }
     }
 
+    /**
+     * Converts the given serialized object string back into an object
+     *
+     * @param strObj the serialized string to convert to an object
+     * @return the deserialized object
+     */
+    @Nullable
     private Object deserialize(String strObj) {
         try {
             byte b[] = strObj.getBytes();
@@ -395,10 +417,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ObjectInputStream si = new ObjectInputStream(bi);
             return si.readObject();
         } catch (IOException e) {
-            System.out.println(e);
             return null;
         } catch (ClassNotFoundException e) {
-            System.out.println(e);
             return null;
         }
     }
