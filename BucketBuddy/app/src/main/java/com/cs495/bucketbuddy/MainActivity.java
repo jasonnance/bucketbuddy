@@ -1,18 +1,57 @@
 package com.cs495.bucketbuddy;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 public class MainActivity extends ActionBarActivity {
+
+
+    Button btnTeams,btnStartGame,btnAbout ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DatabaseHelper dbHelper = new DatabaseHelper(this,null,null,1);
+        btnTeams = (Button) findViewById(R.id.mainTeamBtn);
+        btnStartGame = (Button) findViewById(R.id.mainStartBtn);
+        btnAbout = (Button) findViewById(R.id.mainAboutBtn);
+
+
+
+        btnAbout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent swap;
+                swap = new Intent(MainActivity.this,AboutActivity.class );
+                MainActivity.this.startActivity(swap);
+            }
+        });
+
+        btnStartGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent swap;
+                swap = new Intent(MainActivity.this,GameScreenActivity.class );
+                MainActivity.this.startActivity(swap);
+            }
+        });
+        btnTeams.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent swap;
+                swap = new Intent(MainActivity.this,TeamListActivity.class );
+                MainActivity.this.startActivity(swap);
+            }
+        });
+
     }
 
 
@@ -37,4 +76,6 @@ public class MainActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }
