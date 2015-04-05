@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -35,18 +36,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        if (!db.isReadOnly()) {
-            // Enable foreign key constraints
-            db.execSQL("PRAGMA foreign_keys=ON;");
-        }
-        String CREATE_TABLES = "CREATE TABLE Game (\n" +
+        // Enable foreign key constraints
+        db.execSQL("PRAGMA foreign_keys=ON;");
+
+        String CREATE_GAME = "CREATE TABLE Game (\n" +
                 "    seasonNumber INTEGER NOT NULL ,\n" +
                 "    entityID INTEGER NOT NULL ,\n" +
                 "    gameNumber INTEGER NOT NULL ,\n" +
                 "    PRIMARY KEY (seasonNumber, entityID, gameNumber),\n" +
                 "    FOREIGN KEY (seasonNumber,entityID) REFERENCES Season(seasonNumber,entityID) ON DELETE CASCADE\n" +
-                ");\n" +
-                "CREATE TABLE GameStat (\n" +
+                ");\n";
+        String CREATE_GAMESTAT = "CREATE TABLE GameStat (\n" +
                 "    statName VARCHAR NOT NULL ,\n" +
                 "    statVal VARCHAR NOT NULL ,\n" +
                 "    gameNumber INTEGER NOT NULL ,\n" +
@@ -54,17 +54,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    entityID INTEGER NOT NULL ,\n" +
                 "    PRIMARY KEY (statName, statVal, gameNumber, seasonNumber, entityID),\n" +
                 "    FOREIGN KEY (gameNumber,seasonNumber,entityID) REFERENCES Game(gameNumber,seasonNumber,entityID) ON DELETE CASCADE\n" +
-                ");\n" +
+                ");\n";
+        String CREATE_SEASON =
                 "CREATE TABLE Season (\n" +
                 "    seasonNumber INTEGER NOT NULL ,\n" +
                 "    entityID INTEGER NOT NULL ,\n" +
                 "    PRIMARY KEY (seasonNumber, entityID),\n" +
                 "    FOREIGN KEY (entityID) REFERENCES StatEntity(entityID) ON DELETE CASCADE\n" +
-                ");\n" +
+                ");\n";
+        String CREATE_STATENTITY =
                 "CREATE TABLE StatEntity (\n" +
                 "    entityID INTEGER PRIMARY KEY  AUTOINCREMENT  NOT NULL ,\n" +
                 "    type VARCHAR NOT NULL\n" +
-                ");\n" +
+                ");\n";
+        String CREATE_STATENTITYATTR =
                 "CREATE TABLE StatEntityAttr (\n" +
                 "    attrName VARCHAR NOT NULL ,\n" +
                 "    attrVal VARCHAR NOT NULL ,\n" +
@@ -73,7 +76,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    FOREIGN KEY (entityID) REFERENCES StatEntity(entityID) ON DELETE CASCADE\n" +
                 ");";
 
-        db.execSQL(CREATE_TABLES);
+        db.execSQL(CREATE_GAME);
+        db.execSQL(CREATE_GAMESTAT);
+        db.execSQL(CREATE_SEASON);
+        db.execSQL(CREATE_STATENTITY);
+        db.execSQL(CREATE_STATENTITYATTR);
     }
 
     @Override
@@ -248,7 +255,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @return an arraylist of all teams in the database
      */
     public ArrayList<Team> getAllTeams() {
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
 
         ArrayList<Team> allTeams = new ArrayList<Team>();
         Cursor teamFinderCur = db.rawQuery("SELECT entityID FROM StatEntity" +

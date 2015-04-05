@@ -33,12 +33,11 @@ public class TeamListActivity extends ActionBarActivity{
         });
 
         TableLayout tableLayout = (TableLayout) findViewById(R.id.teamsListTable);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,
-                ActionBar.LayoutParams.WRAP_CONTENT);
-        tableLayout.setLayoutParams(params);
+        TableLayout.LayoutParams params = new TableLayout.LayoutParams(TableLayout.LayoutParams.WRAP_CONTENT,
+                TableLayout.LayoutParams.WRAP_CONTENT);
 
-        TableRow.LayoutParams trparams = new TableRow.LayoutParams(android.widget.TableRow.LayoutParams.WRAP_CONTENT,
-                android.widget.TableRow.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams trparams = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
+                TableRow.LayoutParams.WRAP_CONTENT);
 
         DatabaseHelper dbHelper = new DatabaseHelper(this, null, null, 1);
         ArrayList<Team> allTeams = dbHelper.getAllTeams();
@@ -51,7 +50,7 @@ public class TeamListActivity extends ActionBarActivity{
             TableRow tableRow = new TableRow(this);
             tableRow.setLayoutParams(trparams);
             tableRow.addView(teamName);
-            tableLayout.addView(tableRow);
+            tableLayout.addView(tableRow, params);
         }
     }
 }
