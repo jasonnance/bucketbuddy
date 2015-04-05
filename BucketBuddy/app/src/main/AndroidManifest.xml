@@ -16,13 +16,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutActivity"> </activity>
-        <activity android:name=".GameScreenActivity"> </activity>
-        <activity android:name=".TeamListActivity"> </activity>
-
-
-
-
+        <activity android:name=".AboutActivity" >
+        </activity>
+        <activity android:name=".GameScreenActivity" >
+        </activity>
+        <activity android:name=".TeamListActivity" >
+        </activity>
+        <activity
+            android:name=".CreateTeam"
+            android:label="@string/title_activity_create_team"
+            android:parentActivityName=".TeamListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs495.bucketbuddy.TeamListActivity" />
+        </activity>
     </application>
 
 </manifest>

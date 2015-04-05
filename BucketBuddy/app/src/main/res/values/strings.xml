@@ -9,5 +9,6 @@
     <string name="mainAboutBtn">ABOUT</string>
     <string name="aboutTxt">"Bucket Buddy" was idealized as a project for the class CS495 at The University of Alabama taking into consideration basketball fans and professionals in the area who want to keep personal data about their favorite teams.</string>
     <string name="aboutBios">https://jasonnance.github.io/bucketbuddy/bio.html</string>
+    <string name="title_activity_create_team">CreateTeam</string>
 
 </resources>

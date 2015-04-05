@@ -11,9 +11,7 @@ import android.widget.Button;
 
 public class MainActivity extends ActionBarActivity {
 
-
     Button btnTeams,btnStartGame,btnAbout ;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +21,6 @@ public class MainActivity extends ActionBarActivity {
         btnTeams = (Button) findViewById(R.id.mainTeamBtn);
         btnStartGame = (Button) findViewById(R.id.mainStartBtn);
         btnAbout = (Button) findViewById(R.id.mainAboutBtn);
-
-
 
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
