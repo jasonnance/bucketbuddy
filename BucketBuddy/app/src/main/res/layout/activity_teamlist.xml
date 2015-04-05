@@ -25,6 +25,16 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="28dp"
-        android:id="@+id/teamsListTable"></TableLayout>
+        android:id="@+id/teamsListTable"
+        android:layout_above="@+id/button"></TableLayout>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Team"
+        android:id="@+id/spawnCreateTeam"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

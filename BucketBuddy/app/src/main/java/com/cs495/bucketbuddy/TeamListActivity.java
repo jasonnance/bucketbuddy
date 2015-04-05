@@ -1,8 +1,11 @@
 package com.cs495.bucketbuddy;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -18,6 +21,16 @@ public class TeamListActivity extends ActionBarActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teamlist);
+
+        Button createTeamButton = (Button) findViewById(R.id.spawnCreateTeam);
+        createTeamButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent swap;
+                swap = new Intent(TeamListActivity.this,CreateTeam.class );
+                TeamListActivity.this.startActivity(swap);
+            }
+        });
 
         TableLayout tableLayout = (TableLayout) findViewById(R.id.teamsListTable);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,
