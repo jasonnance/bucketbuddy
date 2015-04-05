@@ -250,9 +250,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public ArrayList<Team> getAllTeams() {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        ArrayList<Team> allTeams = new ArrayList<>();
+        ArrayList<Team> allTeams = new ArrayList<Team>();
         Cursor teamFinderCur = db.rawQuery("SELECT entityID FROM StatEntity" +
-                "WHERE type == 'team'", null);
+                " WHERE type == 'team'", null);
 
         if (teamFinderCur.moveToFirst()) {
             do {
