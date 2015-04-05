@@ -16,7 +16,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="62dp"
-        android:layout_marginStart="62dp">
+        android:layout_marginStart="62dp"
+        android:id="@+id/linearLayout">
 
     </LinearLayout>
 
@@ -26,15 +27,18 @@
         android:id="@+id/scrollView"
         android:layout_marginTop="80dp">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/imageView"
-            android:src="@drawable/quadra"
-            android:layout_alignTop="@+id/scrollView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:adjustViewBounds="true" />
     </ScrollView>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/quadra"
+        android:adjustViewBounds="true"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
