@@ -252,7 +252,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ArrayList<Team> allTeams = new ArrayList<>();
         Cursor teamFinderCur = db.rawQuery("SELECT entityID FROM StatEntity" +
-                "WHERE type = 'team'", null);
+                "WHERE type == 'team'", null);
 
         if (teamFinderCur.moveToFirst()) {
             do {
