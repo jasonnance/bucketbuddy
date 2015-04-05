@@ -26,7 +26,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="28dp"
         android:id="@+id/teamsListTable"
-        android:layout_above="@+id/button"></TableLayout>
+        android:layout_above="@+id/CreatePlayerSubmitButton"></TableLayout>
 
     <Button
         style="?android:attr/buttonStyleSmall"

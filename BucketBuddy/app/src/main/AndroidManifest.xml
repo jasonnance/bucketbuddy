@@ -30,6 +30,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs495.bucketbuddy.TeamListActivity" />
         </activity>
+        <activity
+            android:name=".CreatePlayer"
+            android:label="@string/title_activity_create_player" >
+        </activity>
     </application>
 
 </manifest>
