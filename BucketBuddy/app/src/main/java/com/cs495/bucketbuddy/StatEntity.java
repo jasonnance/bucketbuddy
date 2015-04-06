@@ -138,7 +138,7 @@ public abstract class StatEntity {
      * @return an array containing an array of statistic values for every season
      */
     public ArrayList<ArrayList<Object>> getCareerStat(String name) {
-        ArrayList<ArrayList<Object>> careerStat = new ArrayList<>();
+        ArrayList<ArrayList<Object>> careerStat = new ArrayList<ArrayList<Object>>();
         for (Season season : seasons) {
             careerStat.add(season.getSeasonStat(name));
         }

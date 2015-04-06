@@ -44,7 +44,7 @@ public class TeamListActivity extends ActionBarActivity{
 
         for (Team team : allTeams) {
             TextView teamName = new TextView(this);
-            teamName.setText((String) team.getAttr("name"));
+            teamName.setText((String) team.getAttr("teamName"));
             teamName.setLayoutParams(trparams);
 
             TableRow tableRow = new TableRow(this);

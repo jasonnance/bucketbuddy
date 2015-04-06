@@ -57,6 +57,7 @@ public class CreateTeam extends ActionBarActivity {
         Team newTeam = new Team();
         newTeam.setAttr("teamName",newTeamName);
         DatabaseHelper newTeamDB = new DatabaseHelper(this,null,null,1);
+        newTeamDB.addStatEntity(newTeam);
     }
 
 }

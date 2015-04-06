@@ -7,7 +7,7 @@ CREATE TABLE Game (
 );
 CREATE TABLE GameStat (
     statName VARCHAR NOT NULL ,
-    statVal VARCHAR NOT NULL ,
+    statVal BLOB NOT NULL ,
     gameNumber INTEGER NOT NULL ,
     seasonNumber INTEGER NOT NULL ,
     entityID INTEGER NOT NULL ,
@@ -26,7 +26,7 @@ CREATE TABLE StatEntity (
 );
 CREATE TABLE StatEntityAttr (
     attrName VARCHAR NOT NULL ,
-    attrVal VARCHAR NOT NULL ,
+    attrVal BLOB NOT NULL ,
     entityID INTEGER NOT NULL ,
     PRIMARY KEY (attrName, attrVal, entityID),
     FOREIGN KEY (entityID) REFERENCES StatEntity(entityID) ON DELETE CASCADE
