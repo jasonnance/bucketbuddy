@@ -52,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    gameNumber INTEGER NOT NULL ,\n" +
                 "    seasonNumber INTEGER NOT NULL ,\n" +
                 "    entityID INTEGER NOT NULL ,\n" +
-                "    PRIMARY KEY (statName, statVal, gameNumber, seasonNumber, entityID),\n" +
+                "    PRIMARY KEY (statName, gameNumber, seasonNumber, entityID),\n" +
                 "    FOREIGN KEY (gameNumber,seasonNumber,entityID) REFERENCES Game(gameNumber,seasonNumber,entityID) ON DELETE CASCADE\n" +
                 ");\n";
         String CREATE_SEASON =
@@ -72,7 +72,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "    attrName VARCHAR NOT NULL ,\n" +
                 "    attrVal BLOB NOT NULL ,\n" +
                 "    entityID INTEGER NOT NULL ,\n" +
-                "    PRIMARY KEY (attrName, attrVal, entityID),\n" +
+                "    PRIMARY KEY (attrName, entityID),\n" +
                 "    FOREIGN KEY (entityID) REFERENCES StatEntity(entityID) ON DELETE CASCADE\n" +
                 ");";
 
