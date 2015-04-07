@@ -25,9 +25,11 @@ public class CreatePlayer extends ActionBarActivity {
         createPlayerSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createPlayer();
-                Intent swap;
-                swap = new Intent(CreatePlayer.this,EditPlayer.class );
+                Bundle extras = getIntent().getExtras();
+                long teamId = extras.getLong("teamId");
+                Player newPlayer = createPlayer(teamId);
+                Intent swap = new Intent(CreatePlayer.this,EditPlayer.class );
+                swap.putExtra("playerId", newPlayer.getId());
                 CreatePlayer.this.startActivity(swap);
             }
         });
@@ -55,12 +57,17 @@ public class CreatePlayer extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void createPlayer(){
+    private Player createPlayer(long teamId){
         String newPlayerName = playerNameInput.getText().toString();
         Player newPlayer = new Player();
         newPlayer.setAttr("playerName",newPlayerName);
-        newPlayer.setTeamId(0001);
+        newPlayer.setTeamId(teamId);
         DatabaseHelper newPlayerDB = new DatabaseHelper(this,null,null,1);
+        newPlayer = (Player) newPlayerDB.addStatEntity(newPlayer);
+        Team updatedTeam = (Team) newPlayerDB.getStatEntity(teamId);
+        updatedTeam.addPlayerId(newPlayer.getId());
+        newPlayerDB.updateStatEntity(updatedTeam);
+        return newPlayer;
     }
 
 }

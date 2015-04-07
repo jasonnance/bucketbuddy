@@ -25,9 +25,11 @@ public class EditPlayer extends ActionBarActivity {
         submitNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //addPlayerNumber();
-                Intent swap;
-                swap = new Intent(EditPlayer.this,EditTeam.class );
+                Bundle extras = getIntent().getExtras();
+                long playerId = extras.getLong("playerId");
+                Player editedPlayer = editPlayer(playerId);
+                Intent swap = new Intent(EditPlayer.this,EditTeam.class );
+                swap.putExtra("playerId", editedPlayer.getId());
                 EditPlayer.this.startActivity(swap);
             }
         });
@@ -55,5 +57,14 @@ public class EditPlayer extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private Player editPlayer(long playerId) {
+        int playerNumberAttr = Integer.parseInt(playerNumber.getText().toString());
+        DatabaseHelper dbHelper = new DatabaseHelper(null,null,null,1);
+        Player player = (Player) dbHelper.getStatEntity(playerId);
+        player.setAttr("playerNumber", playerNumberAttr);
+        dbHelper.updateStatEntity(player);
+        return player;
     }
 }

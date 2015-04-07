@@ -23,11 +23,16 @@ public class EditTeam extends ActionBarActivity {
         createPlayerButton = (Button) findViewById(R.id.spawnAddPlayer);
         dButton = (Button) findViewById(R.id.doneButton);
 
+        Bundle extras = getIntent().getExtras();
+
         createPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent swap;
                 swap = new Intent(EditTeam.this,CreatePlayer.class );
+                Bundle extras = getIntent().getExtras();
+                long teamId = extras.getLong("teamId");
+                swap.putExtra("teamId", teamId);
                 EditTeam.this.startActivity(swap);
             }
         });

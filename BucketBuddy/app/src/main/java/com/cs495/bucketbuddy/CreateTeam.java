@@ -25,9 +25,10 @@ public class CreateTeam extends ActionBarActivity {
         createTeamButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createTeam();
+                Team newTeam = createTeam();
                 Intent swap;
                 swap = new Intent(CreateTeam.this,EditTeam.class );
+                swap.putExtra("teamId", newTeam.getId());
                 CreateTeam.this.startActivity(swap);
             }
         });
@@ -62,12 +63,13 @@ public class CreateTeam extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void createTeam(){
+    private Team createTeam(){
         String newTeamName = teamNameInput.getText().toString();
         Team newTeam = new Team();
         newTeam.setAttr("teamName",newTeamName);
         DatabaseHelper newTeamDB = new DatabaseHelper(this,null,null,1);
-        newTeamDB.addStatEntity(newTeam);
+        newTeam = (Team) newTeamDB.addStatEntity(newTeam);
+        return newTeam;
     }
 
 }
