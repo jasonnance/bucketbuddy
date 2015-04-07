@@ -34,6 +34,14 @@
             android:name=".CreatePlayer"
             android:label="@string/title_activity_create_player" >
         </activity>
+        <activity
+            android:name=".EditTeam"
+            android:label="@string/title_activity_edit_team" >
+        </activity>
+        <activity
+            android:name=".EditPlayer"
+            android:label="@string/title_activity_edit_player" >
+        </activity>
     </application>
 
 </manifest>

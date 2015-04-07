@@ -11,40 +11,41 @@ import android.widget.Button;
 import android.app.ActionBar;
 import android.content.Intent;
 
-public class CreateTeam extends ActionBarActivity {
+public class EditTeam extends ActionBarActivity {
 
-   //private static Button createTeamSubmitButton;
-    private static EditText teamNameInput;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_team);
-        Button createTeamButton = (Button) findViewById(R.id.CreateTeamSubmitButton);
-        teamNameInput = (EditText) findViewById(R.id.CreateTeamNameInput);
-        createTeamButton.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_edit_team);
+        Button createPlayerButton;
+        Button dButton;
+        createPlayerButton = (Button) findViewById(R.id.spawnAddPlayer);
+        dButton = (Button) findViewById(R.id.doneButton);
+
+        createPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createTeam();
                 Intent swap;
-                swap = new Intent(CreateTeam.this,EditTeam.class );
-                CreateTeam.this.startActivity(swap);
+                swap = new Intent(EditTeam.this,CreatePlayer.class );
+                EditTeam.this.startActivity(swap);
             }
         });
-        //createTeamSubmitButton = (Button) findViewById(R.id.CreateTeamSubmitButton);
-//        createTeamSubmitButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
-    }
 
+        dButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent swap;
+                swap = new Intent(EditTeam.this,TeamListActivity.class );
+                EditTeam.this.startActivity(swap);
+            }
+        });
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_create_team, menu);
+        getMenuInflater().inflate(R.menu.menu_edit_team, menu);
         return true;
     }
 
@@ -61,13 +62,4 @@ public class CreateTeam extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-    private void createTeam(){
-        String newTeamName = teamNameInput.getText().toString();
-        Team newTeam = new Team();
-        newTeam.setAttr("teamName",newTeamName);
-        DatabaseHelper newTeamDB = new DatabaseHelper(this,null,null,1);
-        newTeamDB.addStatEntity(newTeam);
-    }
-
 }

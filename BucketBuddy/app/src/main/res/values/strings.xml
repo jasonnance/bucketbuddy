@@ -11,5 +11,7 @@
     <string name="aboutBios">https://jasonnance.github.io/bucketbuddy/bio.html</string>
     <string name="title_activity_create_team">CreateTeam</string>
     <string name="title_activity_create_player">CreatePlayer</string>
+    <string name="title_activity_edit_team">EditTeam</string>
+    <string name="title_activity_edit_player">EditPlayer</string>
 
 </resources>

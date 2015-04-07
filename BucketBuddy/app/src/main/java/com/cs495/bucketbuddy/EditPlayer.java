@@ -11,32 +11,34 @@ import android.widget.Button;
 import android.app.ActionBar;
 import android.content.Intent;
 
-public class CreatePlayer extends ActionBarActivity {
-
-    private static Button createPlayerSubmitButton;
-    private static EditText playerNameInput;
+public class EditPlayer extends ActionBarActivity {
+    private static Button submitNumber;
+    private static EditText playerNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_player);
-        playerNameInput = (EditText) findViewById(R.id.CreatePlayerNameInput);
-        createPlayerSubmitButton = (Button) findViewById(R.id.CreatePlayerSubmitButton);
-        createPlayerSubmitButton.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_edit_player);
+
+        playerNumber = (EditText) findViewById(R.id.pNumberText);
+        submitNumber = (Button) findViewById(R.id.editPlayerSubmit);
+        submitNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createPlayer();
+                //addPlayerNumber();
                 Intent swap;
-                swap = new Intent(CreatePlayer.this,EditPlayer.class );
-                CreatePlayer.this.startActivity(swap);
+                swap = new Intent(EditPlayer.this,EditTeam.class );
+                EditPlayer.this.startActivity(swap);
             }
         });
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_create_player, menu);
+        getMenuInflater().inflate(R.menu.menu_edit_player, menu);
         return true;
     }
 
@@ -54,13 +56,4 @@ public class CreatePlayer extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    private void createPlayer(){
-        String newPlayerName = playerNameInput.getText().toString();
-        Player newPlayer = new Player();
-        newPlayer.setAttr("playerName",newPlayerName);
-        newPlayer.setTeamId(0001);
-        DatabaseHelper newPlayerDB = new DatabaseHelper(this,null,null,1);
-    }
-
 }
