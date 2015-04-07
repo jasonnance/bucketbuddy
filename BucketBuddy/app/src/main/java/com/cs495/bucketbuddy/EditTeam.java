@@ -23,7 +23,6 @@ public class EditTeam extends ActionBarActivity {
         createPlayerButton = (Button) findViewById(R.id.spawnAddPlayer);
         dButton = (Button) findViewById(R.id.doneButton);
 
-        Bundle extras = getIntent().getExtras();
 
         createPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override

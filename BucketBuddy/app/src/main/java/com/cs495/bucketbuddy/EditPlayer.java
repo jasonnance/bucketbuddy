@@ -27,9 +27,11 @@ public class EditPlayer extends ActionBarActivity {
             public void onClick(View v) {
                 Bundle extras = getIntent().getExtras();
                 long playerId = extras.getLong("playerId");
+                long teamId = extras.getLong("teamId");
                 Player editedPlayer = editPlayer(playerId);
                 Intent swap = new Intent(EditPlayer.this,EditTeam.class );
                 swap.putExtra("playerId", editedPlayer.getId());
+                swap.putExtra("teamId", teamId);
                 EditPlayer.this.startActivity(swap);
             }
         });
@@ -61,7 +63,7 @@ public class EditPlayer extends ActionBarActivity {
 
     private Player editPlayer(long playerId) {
         int playerNumberAttr = Integer.parseInt(playerNumber.getText().toString());
-        DatabaseHelper dbHelper = new DatabaseHelper(null,null,null,1);
+        DatabaseHelper dbHelper = new DatabaseHelper(this,null,null,1);
         Player player = (Player) dbHelper.getStatEntity(playerId);
         player.setAttr("playerNumber", playerNumberAttr);
         dbHelper.updateStatEntity(player);

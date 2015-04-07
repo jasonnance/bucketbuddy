@@ -30,6 +30,7 @@ public class CreatePlayer extends ActionBarActivity {
                 Player newPlayer = createPlayer(teamId);
                 Intent swap = new Intent(CreatePlayer.this,EditPlayer.class );
                 swap.putExtra("playerId", newPlayer.getId());
+                swap.putExtra("teamId", teamId);
                 CreatePlayer.this.startActivity(swap);
             }
         });
