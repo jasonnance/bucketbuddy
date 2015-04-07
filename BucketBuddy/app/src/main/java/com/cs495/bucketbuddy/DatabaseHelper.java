@@ -344,7 +344,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 // Otherwise, this is a normal attribute
                 else{
                     entity.setAttr(attrName, attrVal);
-                    break;
+                    //break;
                 }
 
             } while (attrCur.moveToNext());
