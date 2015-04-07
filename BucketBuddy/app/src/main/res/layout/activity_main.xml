@@ -16,34 +16,41 @@
         android:adjustViewBounds="true" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
         android:layout_below="@+id/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp">
+        android:layout_alignLeft="@+id/logo"
+        android:layout_alignStart="@+id/logo"
+        android:orientation="vertical">
 
         <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/mainTeamBtn"
-            android:id="@+id/mainTeamBtn"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/mainGameBtn"
             android:id="@+id/mainStartBtn"
-            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mainTeamBtn"
+            android:id="@+id/mainTeamBtn"
+            android:layout_gravity="center" />
 
         <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/mainAboutBtn"
-            android:id="@+id/mainAboutBtn"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp" />
+            android:id="@+id/mainAboutBtn"/>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mainDeleteDbBtn"
+            android:id="@+id/mainDeleteDbBtn" />
+
     </LinearLayout>
+
 </RelativeLayout>

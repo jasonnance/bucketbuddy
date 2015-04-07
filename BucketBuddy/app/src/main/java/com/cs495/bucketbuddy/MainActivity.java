@@ -1,5 +1,7 @@
 package com.cs495.bucketbuddy;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,7 +12,7 @@ import android.widget.Button;
 
 public class MainActivity extends ActionBarActivity {
 
-    Button btnTeams,btnStartGame,btnAbout ;
+    Button btnTeams,btnStartGame,btnAbout, btnDeleteDb ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +22,7 @@ public class MainActivity extends ActionBarActivity {
         btnTeams = (Button) findViewById(R.id.mainTeamBtn);
         btnStartGame = (Button) findViewById(R.id.mainStartBtn);
         btnAbout = (Button) findViewById(R.id.mainAboutBtn);
+        btnDeleteDb = (Button) findViewById(R.id.mainDeleteDbBtn);
 
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +47,12 @@ public class MainActivity extends ActionBarActivity {
                 Intent swap;
                 swap = new Intent(MainActivity.this,TeamListActivity.class );
                 MainActivity.this.startActivity(swap);
+            }
+        });
+        btnDeleteDb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spawnDeleteDatabaseDialog();
             }
         });
 
@@ -72,5 +81,24 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void spawnDeleteDatabaseDialog() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(R.string.deleteDb)
+                .setMessage(R.string.reallyDeleteDb)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        deleteDatabase();
+                    }
+                })
+                .setNegativeButton(R.string.no, null)
+                .show();
+    }
+
+    private void deleteDatabase() {
+        this.deleteDatabase("bucketbuddy.db");
+    }
 
 }
