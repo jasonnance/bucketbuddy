@@ -11,7 +11,7 @@ CREATE TABLE "GameStat" (
     "gameNumber" INTEGER NOT NULL ,
     "seasonNumber" INTEGER NOT NULL ,
     "entityID" INTEGER NOT NULL ,
-    PRIMARY KEY ("statName", "statVal", "gameNumber", "seasonNumber", "entityID"),
+    PRIMARY KEY ("statName", "gameNumber", "seasonNumber", "entityID"),
     FOREIGN KEY ("gameNumber","seasonNumber","entityID") REFERENCES "Game"("gameNumber","seasonNumber","entityID") ON DELETE CASCADE
 );
 CREATE TABLE "Season" (
@@ -28,6 +28,6 @@ CREATE TABLE "StatEntityAttr" (
     "attrName" VARCHAR NOT NULL ,
     "attrVal" BLOB NOT NULL ,
     "entityID" INTEGER NOT NULL ,
-    PRIMARY KEY ("attrName", "attrVal", "entityID"),
+    PRIMARY KEY ("attrName", "entityID"),
     FOREIGN KEY ("entityID") REFERENCES "StatEntity"("entityID") ON DELETE CASCADE
 );

@@ -42,6 +42,14 @@
             android:name=".EditPlayer"
             android:label="@string/title_activity_edit_player" >
         </activity>
+        <activity
+            android:name=".ViewEntityStatsActivity"
+            android:label="@string/title_activity_view_entity_stats"
+            android:parentActivityName=".TeamListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs495.bucketbuddy.TeamListActivity" />
+        </activity>
     </application>
 
 </manifest>

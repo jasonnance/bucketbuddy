@@ -14,9 +14,13 @@
     <string name="reallyDeleteDb">Are you sure you want to delete the database?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="points">Points</string>
+    <string name="rebounds">Rebounds</string>
+    <string name="assists">Assists</string>
     <string name="title_activity_create_team">CreateTeam</string>
     <string name="title_activity_create_player">CreatePlayer</string>
     <string name="title_activity_edit_team">EditTeam</string>
     <string name="title_activity_edit_player">EditPlayer</string>
+    <string name="title_activity_view_entity_stats">View Stats</string>
 
 </resources>
