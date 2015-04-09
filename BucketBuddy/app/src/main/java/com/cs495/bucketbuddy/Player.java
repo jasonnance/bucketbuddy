@@ -11,6 +11,7 @@ import java.util.HashMap;
  */
 public class Player extends StatEntity {
 
+    public enum Position {PointGuard, ShootingGuard, SmallForward, PowerForward, Center};
     private long teamId;
 
     /**
