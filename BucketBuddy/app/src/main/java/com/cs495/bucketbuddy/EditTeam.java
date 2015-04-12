@@ -13,24 +13,44 @@ import android.content.Intent;
 
 public class EditTeam extends ActionBarActivity {
 
-
+    private long teamId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_team);
         Button createPlayerButton;
         Button dButton;
+        //Button changeTeamNameButton;
         createPlayerButton = (Button) findViewById(R.id.spawnAddPlayer);
         dButton = (Button) findViewById(R.id.doneButton);
 
+        //changeTeamNameButton = (Button) findViewById(R.id.CreateTeamSubmitButton);
+        EditText teamNameChangeInput;
+        teamNameChangeInput = (EditText) findViewById(R.id.changeTeamName);
+
+        Bundle extras = getIntent().getExtras();
+        teamId = extras.getLong("teamId");
+
+        DatabaseHelper dbHelper = new DatabaseHelper(this, null, null, 1);
+        Team newTeam = (Team) dbHelper.getStatEntity(teamId);
+
+        String newTeamName = newTeam.getAttr("teamName").toString();
+
+        //teamNameChangeInput.setText(newTeam.getAttr("teamName").toString());
+        teamNameChangeInput.setText(newTeamName);
+
+//        changeTeamNameButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//               //editTeamName( newTeamName );
+//            }
+//        });
 
         createPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent swap;
                 swap = new Intent(EditTeam.this,CreatePlayer.class );
-                Bundle extras = getIntent().getExtras();
-                long teamId = extras.getLong("teamId");
                 swap.putExtra("teamId", teamId);
                 EditTeam.this.startActivity(swap);
             }

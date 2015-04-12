@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Button;
 import android.app.ActionBar;
@@ -14,6 +16,8 @@ import android.content.Intent;
 public class EditPlayer extends ActionBarActivity {
     private static Button submitNumber;
     private static EditText playerNumber;
+    private static RadioGroup positionGroup;
+    private static RadioButton playerPositionAttr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,10 +25,14 @@ public class EditPlayer extends ActionBarActivity {
         setContentView(R.layout.activity_edit_player);
 
         playerNumber = (EditText) findViewById(R.id.pNumberText);
+        positionGroup = (RadioGroup) findViewById(R.id.rgPosition);
+        positionGroup.check(R.id.radioButton6);
         submitNumber = (Button) findViewById(R.id.editPlayerSubmit);
         submitNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int selectedID = positionGroup.getCheckedRadioButtonId();
+                playerPositionAttr = (RadioButton) findViewById(selectedID);
                 Bundle extras = getIntent().getExtras();
                 long playerId = extras.getLong("playerId");
                 long teamId = extras.getLong("teamId");
@@ -63,9 +71,11 @@ public class EditPlayer extends ActionBarActivity {
 
     private Player editPlayer(long playerId) {
         int playerNumberAttr = Integer.parseInt(playerNumber.getText().toString());
+        String playerPosition = (String) playerPositionAttr.getText();
         DatabaseHelper dbHelper = new DatabaseHelper(this,null,null,1);
         Player player = (Player) dbHelper.getStatEntity(playerId);
         player.setAttr("playerNumber", playerNumberAttr);
+        player.setAttr("playerPosition", playerPosition);
         dbHelper.updateStatEntity(player);
         return player;
     }

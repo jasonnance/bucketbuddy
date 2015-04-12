@@ -67,7 +67,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_alignTop="@+id/textView3"
-        android:layout_alignLeft="@+id/pNumberText">
+        android:layout_alignLeft="@+id/pNumberText"
+        android:id="@+id/rgPosition">
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
