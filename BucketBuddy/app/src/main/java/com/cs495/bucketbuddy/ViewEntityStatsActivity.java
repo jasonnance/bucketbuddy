@@ -7,9 +7,13 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -24,6 +28,9 @@ import java.util.ArrayList;
 
 public class ViewEntityStatsActivity extends ActionBarActivity {
 
+    private String selectedStat = "points";
+    private StatEntity entity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,51 +39,23 @@ public class ViewEntityStatsActivity extends ActionBarActivity {
         // TODO long entityId = getIntent().getExtras().getLong("entityId");
         // TODO StatEntity entity = new DatabaseHelper(this, null, null, 1).getStatEntity(entityId);
         // Placeholder test code
-        StatEntity entity = new Team();
+        entity = new Team();
         TeamGame testGame = new TeamGame();
         TeamGame testGame2 = new TeamGame();
         TeamSeason testSeason = new TeamSeason();
         testGame.setStat("points",50);
+        testGame.setStat("rebounds", 40);
+        testGame.setStat("assists", 20);
         testGame2.setStat("points",60);
+        testGame2.setStat("rebounds", 35);
+        testGame2.setStat("assists", 25);
         testSeason.addGame(testGame);
         testSeason.addGame(testGame2);
         entity.addSeason(testSeason);
 
-        generateRadioButtons(entity);
+        generateSpinner();
+        displaySelectedStat();
 
-        String statName = "points";
-        XYSeries series = new XYSeries(statName);
-        ArrayList<ArrayList<Object>> careerStat = entity.getCareerStat(statName);
-        int gameNum = 0;
-        for (ArrayList<Object> seasonStat : careerStat) {
-            for (Object stat : seasonStat) {
-                series.add(++gameNum, (int) stat);
-            }
-        }
-
-        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-        dataset.addSeries(series);
-        XYSeriesRenderer renderer = new XYSeriesRenderer();
-        renderer.setLineWidth(5);
-        renderer.setColor(Color.WHITE);
-        renderer.setPointStyle(PointStyle.CIRCLE);
-        renderer.setPointStrokeWidth(7);
-
-        XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-        mRenderer.setMarginsColor(Color.argb(0x00, 0xff, 0x00, 0x00));
-        mRenderer.setXLabels(series.getItemCount() - 1);
-        mRenderer.setXTitle("Game Number");
-        mRenderer.setYLabelsAlign(Paint.Align.RIGHT);
-        mRenderer.setYLabelsVerticalPadding(-10);;
-        mRenderer.setAxisTitleTextSize(40);
-        mRenderer.setLabelsTextSize(30);
-        mRenderer.addSeriesRenderer(renderer);
-        mRenderer.setShowLegend(false);
-        mRenderer.setChartTitle(statName);
-        mRenderer.setChartTitleTextSize(50);
-        GraphicalView chartView = ChartFactory.getLineChartView(this, dataset, mRenderer);
-        LinearLayout chartLayout = (LinearLayout) findViewById(R.id.entityGraphLayout);
-        chartLayout.addView(chartView);
 
     }
 
@@ -103,32 +82,70 @@ public class ViewEntityStatsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void generateRadioButtons(StatEntity entity) {
-        ArrayList<RadioButton> radios = new ArrayList<RadioButton>();
+    private void generateSpinner() {
+        String[] choices;
 
-        RadioButton pointsRadio = new RadioButton(this);
-        pointsRadio.setText(R.string.points);
-        radios.add(pointsRadio);
-
-        RadioButton reboundsRadio = new RadioButton(this);
-        reboundsRadio.setText(R.string.rebounds);
-        radios.add(reboundsRadio);
-
-        RadioButton assistsRadio = new RadioButton(this);
-        assistsRadio.setText(R.string.assists);
-        radios.add(assistsRadio);
-
+        // Generate different choices based on the entity type
         if (entity instanceof Player) {
-            // add player specific stats here
+            choices = new String[]{"points", "rebounds", "assists"};
+        } else {
+            choices = new String[]{"points", "rebounds", "assists"};
         }
-        else {
-            // add team specific stats here
+
+        Spinner spinner = (Spinner) findViewById(R.id.entityGraphSelectStat);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,
+                choices);
+        spinner.setAdapter(adapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedStat = (String) parent.getItemAtPosition(position);
+                displaySelectedStat();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+
+    private void displaySelectedStat() {
+        XYSeries series = new XYSeries(selectedStat);
+        ArrayList<ArrayList<Object>> careerStat = entity.getCareerStat(selectedStat);
+        int gameNum = 0;
+        for (ArrayList<Object> seasonStat : careerStat) {
+            for (Object stat : seasonStat) {
+                series.add(++gameNum, (int) stat);
+            }
         }
-        RadioGroup radioGroup = (RadioGroup) findViewById(R.id.entityGraphSelectStat);
-        for (RadioButton radio : radios) {
-            radio.setTextColor(Color.WHITE);
-            radio.setTextSize(12);
-            radioGroup.addView(radio);
-        }
+
+        XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+        dataset.addSeries(series);
+        XYSeriesRenderer renderer = new XYSeriesRenderer();
+        renderer.setLineWidth(5);
+        renderer.setColor(Color.WHITE);
+        renderer.setPointStyle(PointStyle.CIRCLE);
+        renderer.setPointStrokeWidth(7);
+
+        XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
+        mRenderer.setMarginsColor(Color.argb(0x00, 0xff, 0x00, 0x00));
+        mRenderer.setXLabels(series.getItemCount() - 1);
+        mRenderer.setXTitle("Game Number");
+        mRenderer.setYLabelsAlign(Paint.Align.CENTER);
+        mRenderer.setYLabelsVerticalPadding(-10);;
+        mRenderer.setAxisTitleTextSize(40);
+        mRenderer.setLabelsTextSize(30);
+        mRenderer.addSeriesRenderer(renderer);
+        mRenderer.setShowLegend(false);
+        mRenderer.setChartTitle(selectedStat);
+        mRenderer.setChartTitleTextSize(50);
+        GraphicalView chartView = ChartFactory.getLineChartView(this, dataset, mRenderer);
+        LinearLayout chartLayout = (LinearLayout) findViewById(R.id.entityGraphLayout);
+
+        // Remove the currently displayed graph, if there is one
+        chartLayout.removeAllViewsInLayout();
+        chartLayout.addView(chartView);
+
     }
 }

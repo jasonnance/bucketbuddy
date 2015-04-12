@@ -17,10 +17,10 @@
     <string name="points">Points</string>
     <string name="rebounds">Rebounds</string>
     <string name="assists">Assists</string>
-    <string name="title_activity_create_team">CreateTeam</string>
-    <string name="title_activity_create_player">CreatePlayer</string>
-    <string name="title_activity_edit_team">EditTeam</string>
-    <string name="title_activity_edit_player">EditPlayer</string>
+    <string name="title_activity_create_team">Create a Team</string>
+    <string name="title_activity_create_player">Create a Player</string>
+    <string name="title_activity_edit_team">Edit a Team</string>
+    <string name="title_activity_edit_player">Edit a Player</string>
     <string name="title_activity_view_entity_stats">View Stats</string>
 
 </resources>
