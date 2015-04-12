@@ -31,15 +31,12 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
 
     public MyAdapter(Context context){
-    this.context = context;
+        this.context = context;
         dbHelper = new DatabaseHelper(context,null,null,1);
         parentList= dbHelper.getAllTeams();
-        for(int i =0; i<parentList.size();i++){
-        playersID.add(parentList.get(i).getPlayerIds());
-
-
+        for (int i=0; i < parentList.size(); i++) {
+            playersID.add(parentList.get(i).getPlayerIds());
         }
-        System.out.println(playersID.size());
 
     }
 
@@ -88,7 +85,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
         }
 
         TextView txView = (TextView) convertView.findViewById(R.id.txTeamName);
-        txView.setText(parentList.get(groupPosition).getAttr("teamName").toString());
+        txView.setText(String.valueOf(parentList.get(groupPosition).getAttr("teamName").toString()));
         return txView;
     }
 

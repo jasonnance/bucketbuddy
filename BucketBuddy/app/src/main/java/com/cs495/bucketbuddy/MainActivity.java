@@ -16,9 +16,9 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        DatabaseHelper dbHelper = new DatabaseHelper(this,null,null,1);
         btnTeams = (Button) findViewById(R.id.mainTeamBtn);
         btnStartGame = (Button) findViewById(R.id.mainStartBtn);
         btnAbout = (Button) findViewById(R.id.mainAboutBtn);

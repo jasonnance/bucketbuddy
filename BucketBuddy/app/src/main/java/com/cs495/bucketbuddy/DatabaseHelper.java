@@ -154,11 +154,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             db.replace("StatEntityAttr", null, attrValues);
         }
         else {
+            Log.d("dbDebugPlayer", "update got player ids of size: " + String.valueOf(((Team) entity).getPlayerIds().size()));
+            Log.d("dbDebugPlayer", "serial/deserial returned: " + ((ArrayList<Long>) deserialize(serialize(((Team) entity).getPlayerIds()))).size());
             attrValues.put("attrName", "playerIds");
             attrValues.put("attrVal", serialize(((Team) entity).getPlayerIds()));
             attrValues.put("entityID", entity.getId());
             long playerIdSuccess = db.replace("StatEntityAttr", null, attrValues);
-            Log.d("dbDebug", "playerId insert returned " + String.valueOf(playerIdSuccess));
+            Log.d("dbDebugPlayer", "playerId insert returned " + String.valueOf(playerIdSuccess));
         }
 
         // Add all the entity's seasons to the Season table
@@ -300,51 +302,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 Log.d("dbDebug", "serialAttrVal: " + serializedAttrVal);
                 Log.d("dbDebug", "attrVal: " + attrVal);
 
-
-                /*
-                Android studio gave me an error with the switch statement
-                because it apparently can't use a string for comparison.
-                So I had to use if statements. If this change looks good
-                you can delete the commented part out.
-                  */
-
-//                switch(attrName) {
-//                    // If the entity is a player, we need to set its teamId
-//                    case ("teamId"):
-//                        ((Player) entity).setTeamId((Long) attrVal);
-//                        break;
-//                    // If the entity is a team, we need to set its playerIds (if it has any)
-//                    case ("playerIds"):
-//                        if (attrVal != null) {
-//                            for (Long playerId : (ArrayList<Long>) attrVal) {
-//                                ((Team) entity).addPlayerId(playerId);
-//                            }
-//                        }
-//                        break;
-//                // Otherwise, this is a normal attribute
-//                    default:
-//                        entity.setAttr(attrName, attrVal);
-//                        break;
-//                }
-
                 // If the entity is a player, we need to set its teamId
-                if(attrName == "teamId") {
+                if(attrName.equals("teamId")) {
                     ((Player) entity).setTeamId((Long) attrVal);
-                    // break;
                 }
                 // If the entity is a team, we need to set its playerIds (if it has any)
-                else if(attrName == "playerIds") {
+                else if(attrName.equals("playerIds")) {
                     if (attrVal != null) {
                         for (Long playerId : (ArrayList<Long>) attrVal) {
                             ((Team) entity).addPlayerId(playerId);
                         }
                     }
-                    //break;
                 }
                 // Otherwise, this is a normal attribute
                 else{
                     entity.setAttr(attrName, attrVal);
-                    //break;
                 }
 
             } while (attrCur.moveToNext());

@@ -6,9 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.Button;
-import android.app.ActionBar;
 import android.content.Intent;
 
 public class CreatePlayer extends ActionBarActivity {
