@@ -22,5 +22,9 @@
     <string name="title_activity_edit_team">Edit a Team</string>
     <string name="title_activity_edit_player">Edit a Player</string>
     <string name="title_activity_view_entity_stats">View Stats</string>
+    <string name="viewStatus">ViewStats</string>
+    <string name="editTeam">EditTeam</string>
+    <string name="btViewPlayerStats"> ViewStats</string>
+    <string name="btEditPlayer">Edit Player </string>
 
 </resources>

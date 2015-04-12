@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     ArrayList<Team> parentList;
-    ArrayList<String> childList;
     ArrayList <ArrayList<Long>> playersID = new ArrayList<ArrayList<Long>>() ;
 
 
@@ -34,8 +34,15 @@ public class MyAdapter extends BaseExpandableListAdapter {
         this.context = context;
         dbHelper = new DatabaseHelper(context,null,null,1);
         parentList= dbHelper.getAllTeams();
+<<<<<<< Updated upstream
         for (int i=0; i < parentList.size(); i++) {
             playersID.add(parentList.get(i).getPlayerIds());
+=======
+        for(int i = 0; i<parentList.size();i++){
+        playersID.add(parentList.get(i).getPlayerIds());
+
+
+>>>>>>> Stashed changes
         }
 
     }
@@ -47,7 +54,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int groupPosition) {
-        return childList.get(groupPosition).length();
+        return playersID.get(groupPosition).size();
     }
 
     @Override
@@ -83,10 +90,17 @@ public class MyAdapter extends BaseExpandableListAdapter {
             convertView = infalInflater.inflate(R.layout.parent_layout,
                     null);
         }
-
+        Button btEditTeam = (Button) convertView.findViewById(R.id.btEdtitTeam);
+        Button btViewStats = (Button) convertView.findViewById(R.id.btViewTeamStats);
         TextView txView = (TextView) convertView.findViewById(R.id.txTeamName);
+<<<<<<< Updated upstream
         txView.setText(String.valueOf(parentList.get(groupPosition).getAttr("teamName").toString()));
         return txView;
+=======
+
+        txView.setText(parentList.get(groupPosition).getAttr("teamName").toString());
+        return convertView;
+>>>>>>> Stashed changes
     }
 
     @Override
@@ -105,7 +119,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
         txView.setText(dbh.getStatEntity(playersID.get(groupPosition).get(childPosition)).getAttr("playerName").toString());
 
 
-        return txView;
+        return convertView;
     }
 
     @Override
