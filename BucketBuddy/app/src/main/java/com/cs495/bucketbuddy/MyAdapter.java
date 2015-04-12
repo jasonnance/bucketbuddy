@@ -34,15 +34,12 @@ public class MyAdapter extends BaseExpandableListAdapter {
         this.context = context;
         dbHelper = new DatabaseHelper(context,null,null,1);
         parentList= dbHelper.getAllTeams();
-<<<<<<< Updated upstream
-        for (int i=0; i < parentList.size(); i++) {
-            playersID.add(parentList.get(i).getPlayerIds());
-=======
+
+
         for(int i = 0; i<parentList.size();i++){
         playersID.add(parentList.get(i).getPlayerIds());
 
 
->>>>>>> Stashed changes
         }
 
     }
@@ -93,14 +90,11 @@ public class MyAdapter extends BaseExpandableListAdapter {
         Button btEditTeam = (Button) convertView.findViewById(R.id.btEdtitTeam);
         Button btViewStats = (Button) convertView.findViewById(R.id.btViewTeamStats);
         TextView txView = (TextView) convertView.findViewById(R.id.txTeamName);
-<<<<<<< Updated upstream
         txView.setText(String.valueOf(parentList.get(groupPosition).getAttr("teamName").toString()));
-        return txView;
-=======
-
-        txView.setText(parentList.get(groupPosition).getAttr("teamName").toString());
         return convertView;
->>>>>>> Stashed changes
+
+
+
     }
 
     @Override
