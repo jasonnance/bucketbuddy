@@ -24,10 +24,6 @@ public class MainActivity extends ActionBarActivity {
         btnAbout = (Button) findViewById(R.id.mainAboutBtn);
         btnDeleteDb = (Button) findViewById(R.id.mainDeleteDbBtn);
 
-        Intent swap;
-        swap = new Intent(MainActivity.this,ViewEntityStatsActivity.class );
-        MainActivity.this.startActivity(swap);
-
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
