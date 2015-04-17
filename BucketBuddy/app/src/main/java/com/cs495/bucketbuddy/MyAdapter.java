@@ -24,7 +24,6 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     ArrayList<Team> parentList;
-    long teamId = 0;
     ArrayList <ArrayList<Long>> playersID = new ArrayList<ArrayList<Long>>() ;
 
 
@@ -78,7 +77,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater infalInflater = (LayoutInflater) context
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -91,7 +90,6 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
         btEditTeam.setFocusable(false);
         btViewStats.setFocusable(false);
-        teamId = (long) parentList.get(groupPosition).getId();
 
         txView.setText(String.valueOf(parentList.get(groupPosition).getAttr("teamName").toString()));
 
@@ -100,8 +98,8 @@ public class MyAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 Intent swap;
                 swap = new Intent(context,EditTeam.class );
-                swap.putExtra("teamId",teamId);
-                System.out.println("----------------->" + teamId);
+                Long teamId= (long)parentList.get(groupPosition).getId();
+                swap.putExtra("teamId", teamId);
                 context.startActivity(swap);
 
             }
