@@ -1,6 +1,7 @@
 package com.cs495.bucketbuddy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Rafael on 4/9/15.
@@ -22,12 +24,8 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     ArrayList<Team> parentList;
+    long teamId = 0;
     ArrayList <ArrayList<Long>> playersID = new ArrayList<ArrayList<Long>>() ;
-
-
-
-
-
 
 
     public MyAdapter(Context context){
@@ -61,7 +59,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int groupPosition, int childPosition) {
-        return null;
+        return playersID.get(groupPosition).get(childPosition);
     }
 
     @Override
@@ -71,7 +69,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        return 0;
+        return childPosition;
     }
 
     @Override
@@ -90,7 +88,27 @@ public class MyAdapter extends BaseExpandableListAdapter {
         Button btEditTeam = (Button) convertView.findViewById(R.id.btEdtitTeam);
         Button btViewStats = (Button) convertView.findViewById(R.id.btViewTeamStats);
         TextView txView = (TextView) convertView.findViewById(R.id.txTeamName);
+
+        btEditTeam.setFocusable(false);
+        btViewStats.setFocusable(false);
+        teamId = (long) parentList.get(groupPosition).getId();
+
         txView.setText(String.valueOf(parentList.get(groupPosition).getAttr("teamName").toString()));
+
+        btEditTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent swap;
+                swap = new Intent(context,EditTeam.class );
+                swap.putExtra("teamId",teamId);
+                System.out.println("----------------->" + teamId);
+                context.startActivity(swap);
+
+            }
+        });
+
+
+
         return convertView;
 
 
@@ -111,8 +129,6 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
         TextView txView = (TextView)convertView.findViewById(R.id.txPlayers);
         txView.setText(dbh.getStatEntity(playersID.get(groupPosition).get(childPosition)).getAttr("playerName").toString());
-
-
         return convertView;
     }
 

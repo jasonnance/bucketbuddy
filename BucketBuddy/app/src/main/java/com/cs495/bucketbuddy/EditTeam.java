@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Button;
 import android.app.ActionBar;
@@ -20,9 +23,14 @@ public class EditTeam extends ActionBarActivity {
         setContentView(R.layout.activity_edit_team);
         Button createPlayerButton;
         Button dButton;
+        String[] teamPlayers = {"Player 1", "Player 2", "Player 3"};
         //Button changeTeamNameButton;
         createPlayerButton = (Button) findViewById(R.id.spawnAddPlayer);
         dButton = (Button) findViewById(R.id.doneButton);
+
+        ListView playersList = (ListView)findViewById(R.id.playersListEditTeam);
+        ListAdapter adapterList = new MyAdapter2(this,teamPlayers);
+        playersList.setAdapter(adapterList);
 
         //changeTeamNameButton = (Button) findViewById(R.id.CreateTeamSubmitButton);
         EditText teamNameChangeInput;
