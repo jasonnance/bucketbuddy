@@ -35,9 +35,8 @@ public class ViewEntityStatsActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_entity_stats);
-
-        // TODO long entityId = getIntent().getExtras().getLong("entityId");
-        // TODO StatEntity entity = new DatabaseHelper(this, null, null, 1).getStatEntity(entityId);
+        long entityId = getIntent().getExtras().getLong("entityId");
+        entity = new DatabaseHelper(this, null, null, 1).getStatEntity(entityId);
         // Placeholder test code
         entity = new Team();
         TeamGame testGame = new TeamGame();
