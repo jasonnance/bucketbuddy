@@ -5,18 +5,23 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Button;
 import android.app.ActionBar;
 import android.content.Intent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EditTeam extends ActionBarActivity {
 
     EditText teamNameChangeInput;
     DatabaseHelper dbHelper = new DatabaseHelper(this, null, null, 1);
     private Team curTeam;
-
     private long teamId;
 
     @Override
@@ -25,23 +30,24 @@ public class EditTeam extends ActionBarActivity {
         setContentView(R.layout.activity_edit_team);
         Button createPlayerButton;
         Button dButton;
+
         Button changeTNButton;
+
+        changeTNButton = (Button) findViewById(R.id.changeTeamNameButton);//
+
+        List<Long> playerId = new ArrayList<Long>();
+        List<String>playersName = new ArrayList<String>();
+
+        //Button changeTeamNameButton;
         createPlayerButton = (Button) findViewById(R.id.spawnAddPlayer);
         dButton = (Button) findViewById(R.id.doneButton);
 
-        //changeTNButton = (Button) findViewById(R.id.CreateTeamSubmitButton);
-        changeTNButton = (Button) findViewById(R.id.changeTeamNameButton);//
         teamNameChangeInput = (EditText) findViewById(R.id.changeTeamName);
 
         Bundle extras = getIntent().getExtras();
         teamId = extras.getLong("teamId");
 
         curTeam = (Team) dbHelper.getStatEntity(teamId);
-
-        //String newTeamName = curTeam.getAttr("teamName").toString();
-
-        teamNameChangeInput.setText(curTeam.getAttr("teamName").toString());//
-        //teamNameChangeInput.setText(newTeamName);
 
         changeTNButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +56,33 @@ public class EditTeam extends ActionBarActivity {
                editTeamName();
             }
         });
+
+        playerId = curTeam.getPlayerIds();
+
+        String newTeamName = curTeam.getAttr("teamName").toString();
+
+        for(int i = 0 ; i<playerId.size();i++)
+            playersName.add(dbHelper.getStatEntity(playerId.get(i)).getAttr("playerName").toString());
+
+        //String[] teamPlayers = (String[])playersName.toArray();
+        String[] teamPlayers = null;
+        if(playerId.size()!=0) {
+            teamPlayers = new String[playersName.size()];
+            for (int i = 0; i < playerId.size(); i++)
+                teamPlayers[i] = playersName.get(i);
+        }
+        else{
+            teamPlayers = new String[1];
+            teamPlayers[0]="No Players";
+        }
+        //System.out.println("------------>" + playersName.get(i));
+        //teamNameChangeInput.setText(newTeam.getAttr("teamName").toString());
+        teamNameChangeInput.setText(newTeamName);
+
+        ListView playersList = (ListView)findViewById(R.id.playersListEditTeam);
+        ListAdapter adapterList = new MyAdapter2(this,teamPlayers);
+        playersList.setAdapter(adapterList);
+
 
         createPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
