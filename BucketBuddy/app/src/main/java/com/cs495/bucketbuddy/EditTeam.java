@@ -1,18 +1,18 @@
 package com.cs495.bucketbuddy;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Button;
-import android.app.ActionBar;
 import android.content.Intent;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,17 +23,19 @@ public class EditTeam extends ActionBarActivity {
     DatabaseHelper dbHelper = new DatabaseHelper(this, null, null, 1);
     private Team curTeam;
     private long teamId;
-
+    Context context;
+    CharSequence text;// = "Hello toast!";
+    int duration = Toast.LENGTH_LONG;
+    String oldTeam;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_team);
         Button createPlayerButton;
         Button dButton;
-
         Button changeTNButton;
 
-        changeTNButton = (Button) findViewById(R.id.changeTeamNameButton);//
+        changeTNButton = (Button) findViewById(R.id.changeTeamNameButton);
 
         List<Long> playerId = new ArrayList<Long>();
         List<String>playersName = new ArrayList<String>();
@@ -49,17 +51,18 @@ public class EditTeam extends ActionBarActivity {
 
         curTeam = (Team) dbHelper.getStatEntity(teamId);
 
+        //oldTeamName = curTeam.getAttr("teamName").toString();
+        oldTeam = curTeam.getAttr("teamName").toString();
+        context  = getApplicationContext();
+
         changeTNButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                editTeamName();
             }
         });
 
         playerId = curTeam.getPlayerIds();
-
-        String newTeamName = curTeam.getAttr("teamName").toString();
 
         for(int i = 0 ; i<playerId.size();i++)
             playersName.add(dbHelper.getStatEntity(playerId.get(i)).getAttr("playerName").toString());
@@ -75,14 +78,12 @@ public class EditTeam extends ActionBarActivity {
             teamPlayers = new String[1];
             teamPlayers[0]="No Players";
         }
-        //System.out.println("------------>" + playersName.get(i));
-        //teamNameChangeInput.setText(newTeam.getAttr("teamName").toString());
-        teamNameChangeInput.setText(newTeamName);
+
+        teamNameChangeInput.setText(oldTeam);
 
         ListView playersList = (ListView)findViewById(R.id.playersListEditTeam);
         ListAdapter adapterList = new MyAdapter2(this,teamPlayers);
         playersList.setAdapter(adapterList);
-
 
         createPlayerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,5 +131,8 @@ public class EditTeam extends ActionBarActivity {
         curTeam.setAttr("teamName",newTeamName);
         DatabaseHelper newTeamDB = new DatabaseHelper(this,null,null,1);
         newTeamDB.updateStatEntity(curTeam);
+        text = "Team name changed from \"" + oldTeam + "\" to \"" + newTeamName + "\".";
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 }
