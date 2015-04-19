@@ -87,10 +87,13 @@ public class MyAdapter extends BaseExpandableListAdapter {
         }
         ImageButton btEditTeam = (ImageButton) convertView.findViewById(R.id.btEdtitTeam);
         ImageButton btViewStats = (ImageButton) convertView.findViewById(R.id.btViewTeamStats);
+        ImageButton btStartGame = (ImageButton) convertView.findViewById(R.id.btStartGame);
+
         TextView txView = (TextView) convertView.findViewById(R.id.txTeamName);
 
         btEditTeam.setFocusable(false);
         btViewStats.setFocusable(false);
+        btStartGame.setFocusable(false);
 
         txView.setText(String.valueOf(parentList.get(groupPosition).getAttr("teamName").toString()));
 
@@ -99,7 +102,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 Intent swap;
                 swap = new Intent(context,EditTeam.class );
-                Long teamId= (long)parentList.get(groupPosition).getId();
+                Long teamId= parentList.get(groupPosition).getId();
                 swap.putExtra("teamId", teamId);
                 context.startActivity(swap);
 
@@ -110,8 +113,19 @@ public class MyAdapter extends BaseExpandableListAdapter {
             public void onClick(View v) {
                 Intent swap;
                 swap = new Intent(context,ViewEntityStatsActivity.class );
-                Long teamId= (long)parentList.get(groupPosition).getId();
+                Long teamId= parentList.get(groupPosition).getId();
                 swap.putExtra("entityId", teamId);
+                context.startActivity(swap);
+
+            }
+        });
+        btStartGame.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent swap;
+                swap = new Intent(context,GameScreenActivity.class );
+                Long teamId= parentList.get(groupPosition).getId();
+                swap.putExtra("teamId", teamId);
                 context.startActivity(swap);
 
             }

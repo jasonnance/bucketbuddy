@@ -17,7 +17,7 @@
 
 
     <ImageButton
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:text="@string/viewStatus"
         android:background="@drawable/view_statisc"
         android:layout_height="wrap_content"
@@ -28,18 +28,19 @@
 
 
     <ImageButton
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:id="@+id/btEdtitTeam"
         android:background="@drawable/edit_item"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_gravity="center_vertical|right" />
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginRight="10dp" />
 
     <ImageButton
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:id="@+id/btStartGame"
         android:background="@drawable/start_game"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical|right" />
 </LinearLayout>
