@@ -5,13 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Button;
-import android.app.ActionBar;
 import android.content.Intent;
 
 import java.util.ArrayList;
@@ -30,10 +28,9 @@ public class EditTeam extends ActionBarActivity {
         setContentView(R.layout.activity_edit_team);
         Button createPlayerButton;
         Button dButton;
-
         Button changeTNButton;
 
-        changeTNButton = (Button) findViewById(R.id.changeTeamNameButton);//
+        changeTNButton = (Button) findViewById(R.id.changeTeamNameButton);
 
         List<Long> playerId = new ArrayList<Long>();
         List<String>playersName = new ArrayList<String>();
@@ -75,8 +72,7 @@ public class EditTeam extends ActionBarActivity {
             teamPlayers = new String[1];
             teamPlayers[0]="No Players";
         }
-        //System.out.println("------------>" + playersName.get(i));
-        //teamNameChangeInput.setText(newTeam.getAttr("teamName").toString());
+
         teamNameChangeInput.setText(newTeamName);
 
         ListView playersList = (ListView)findViewById(R.id.playersListEditTeam);

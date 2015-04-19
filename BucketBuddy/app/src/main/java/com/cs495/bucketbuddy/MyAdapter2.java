@@ -1,11 +1,13 @@
 package com.cs495.bucketbuddy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -20,11 +22,23 @@ import android.widget.TextView;
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ImageButton deleteButton;
         LayoutInflater inflater = LayoutInflater.from(getContext());
         String player = getItem(position);
         View customView = inflater.inflate(R.layout.child_layout2,parent,false);
         TextView txView = (TextView) customView.findViewById(R.id.playeEditTeam);
         txView.setText(player);
+        deleteButton= (ImageButton)convertView.findViewById(R.id.deleteEditTeam);
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                
+
+            }
+        });
+
 
 
         return customView;
