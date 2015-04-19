@@ -11,18 +11,27 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Rafael on 4/16/15.
  */
  class MyAdapter2 extends ArrayAdapter<String> {
+    List<Long> playersId = new ArrayList<Long>();
+    private long teamId;
 
-    public MyAdapter2(Context context, String[] playersList) {
+    public MyAdapter2(Context context, String[] playersList,List<Long> playerId, long teamId) {
 
         super(context,R.layout.child_layout2, playersList);
+        playersId = playerId;
+        this.teamId = teamId;
+
+
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         ImageButton deleteButton;
         LayoutInflater inflater = LayoutInflater.from(getContext());
         String player = getItem(position);
@@ -35,7 +44,17 @@ import android.widget.Toast;
             @Override
             public void onClick(View v) {
                 DatabaseHelper dbh = new DatabaseHelper(getContext(), null, null,1);
-               // dbh.
+                dbh.deleteStatEntity(playersId.get(position));
+                Team mod = (Team)dbh.getStatEntity(teamId);
+                playersId.remove(position);
+                mod.deletePlayer(position);
+               dbh.updateStatEntity(mod);
+
+                Intent swap;
+
+                swap = new Intent(getContext(),EditTeam.class );
+                swap.putExtra("teamId", teamId);
+                getContext().startActivity(swap);
 
             }
         });

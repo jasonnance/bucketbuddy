@@ -21,6 +21,8 @@ public class EditTeam extends ActionBarActivity {
     DatabaseHelper dbHelper = new DatabaseHelper(this, null, null, 1);
     private Team curTeam;
     private long teamId;
+    List<Long> playerId = new ArrayList<Long>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +34,6 @@ public class EditTeam extends ActionBarActivity {
 
         changeTNButton = (Button) findViewById(R.id.changeTeamNameButton);
 
-        List<Long> playerId = new ArrayList<Long>();
         List<String>playersName = new ArrayList<String>();
 
         //Button changeTeamNameButton;
@@ -57,9 +58,13 @@ public class EditTeam extends ActionBarActivity {
         playerId = curTeam.getPlayerIds();
 
         String newTeamName = curTeam.getAttr("teamName").toString();
+        String player;
+        for(int i = 0 ; i<playerId.size();i++){
+            player = dbHelper.getStatEntity(playerId.get(i)).getAttr("playerName").toString();
+            playersName.add(player);
 
-        for(int i = 0 ; i<playerId.size();i++)
-            playersName.add(dbHelper.getStatEntity(playerId.get(i)).getAttr("playerName").toString());
+
+        }
 
         //String[] teamPlayers = (String[])playersName.toArray();
         String[] teamPlayers = null;
@@ -76,7 +81,7 @@ public class EditTeam extends ActionBarActivity {
         teamNameChangeInput.setText(newTeamName);
 
         ListView playersList = (ListView)findViewById(R.id.playersListEditTeam);
-        ListAdapter adapterList = new MyAdapter2(this,teamPlayers);
+        ListAdapter adapterList = new MyAdapter2(this,teamPlayers,playerId,teamId);
         playersList.setAdapter(adapterList);
 
 
