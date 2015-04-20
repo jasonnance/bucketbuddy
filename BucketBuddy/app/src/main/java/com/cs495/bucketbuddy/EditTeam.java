@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListAdapter;
@@ -38,6 +39,10 @@ public class EditTeam extends ActionBarActivity {
         Button createPlayerButton;
         Button dButton;
         Button changeTNButton;
+
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
 
         changeTNButton = (Button) findViewById(R.id.changeTeamNameButton);
 
