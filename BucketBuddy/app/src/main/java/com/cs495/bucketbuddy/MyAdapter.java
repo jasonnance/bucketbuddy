@@ -10,6 +10,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +99,31 @@ public class MyAdapter extends BaseExpandableListAdapter {
         btDeleteTeam.setFocusable(false);
         txView.setText(String.valueOf(parentList.get(groupPosition).getAttr("teamName").toString()));
         txView.setAllCaps(true);
+
+        btDeleteTeam.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatabaseHelper dbh = new DatabaseHelper(context, null, null,1);
+                Team mod = (Team)dbh.getStatEntity(parentList.get(groupPosition).getId());
+                ArrayList<Long> modPlayers = mod.getPlayerIds();
+                for (int i = 0; i < mod.getPlayerIds().size(); i++) {
+                    mod.deletePlayer(Integer.parseInt(modPlayers.get(i).toString()));
+                }
+
+                dbh.updateStatEntity(mod);
+                dbh.deleteStatEntity(parentList.get(groupPosition).getId());
+
+                Toast toast = Toast.makeText(context, "Team Deleted", Toast.LENGTH_SHORT);
+                toast.show();
+                Intent swap;
+                swap = new Intent(context,TeamListActivity.class );
+                swap.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(swap);
+
+
+            }
+        });
 
         btEditTeam.setOnClickListener(new View.OnClickListener() {
             @Override
