@@ -107,6 +107,7 @@ public class EditTeam extends ActionBarActivity {
                 swap = new Intent(EditTeam.this,CreatePlayer.class );
                 swap.putExtra("teamId", teamId);
                 EditTeam.this.startActivity(swap);
+                finish();
             }
         });
 
@@ -116,6 +117,7 @@ public class EditTeam extends ActionBarActivity {
                 Intent swap;
                 swap = new Intent(EditTeam.this,TeamListActivity.class );
                 EditTeam.this.startActivity(swap);
+                finish();
             }
         });
     }

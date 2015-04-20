@@ -61,6 +61,7 @@ import java.util.List;
                 swap.putExtra("teamId", teamId);
                 getContext().startActivity(swap);
 
+
             }
         });
 
