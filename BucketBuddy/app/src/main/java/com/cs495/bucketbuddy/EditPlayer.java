@@ -2,9 +2,11 @@ package com.cs495.bucketbuddy;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.method.DigitsKeyListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -24,9 +26,14 @@ public class EditPlayer extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_player);
 
+        //EditText editView = new EditText(this);
+        //editView.setKeyListener(new DigitsKeyListener());
         playerNumber = (EditText) findViewById(R.id.pNumberText);
+        playerNumber.setKeyListener(new DigitsKeyListener());
+
         positionGroup = (RadioGroup) findViewById(R.id.rgPosition);
         positionGroup.check(R.id.radioButton6);
+
         submitNumber = (Button) findViewById(R.id.editPlayerSubmit);
         submitNumber.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +50,9 @@ public class EditPlayer extends ActionBarActivity {
                 EditPlayer.this.startActivity(swap);
             }
         });
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+        );
 
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.Button;
 import android.content.Intent;
@@ -32,6 +33,9 @@ public class CreatePlayer extends ActionBarActivity {
                 CreatePlayer.this.startActivity(swap);
             }
         });
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
+        );
     }
 
     @Override
