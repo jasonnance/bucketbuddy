@@ -20,7 +20,6 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btnTeams = (Button) findViewById(R.id.mainTeamBtn);
-        btnStartGame = (Button) findViewById(R.id.mainStartBtn);
         btnAbout = (Button) findViewById(R.id.mainAboutBtn);
         btnDeleteDb = (Button) findViewById(R.id.mainDeleteDbBtn);
 
@@ -33,14 +32,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-        btnStartGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent swap;
-                swap = new Intent(MainActivity.this,GameScreenActivity.class );
-                MainActivity.this.startActivity(swap);
-            }
-        });
+
         btnTeams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

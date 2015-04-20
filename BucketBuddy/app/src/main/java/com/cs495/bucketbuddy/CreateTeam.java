@@ -17,6 +17,8 @@ public class CreateTeam extends ActionBarActivity {
    //private static Button createTeamSubmitButton;
     private static EditText teamNameInput;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,9 @@ public class CreateTeam extends ActionBarActivity {
                 Intent swap;
                 swap = new Intent(CreateTeam.this,EditTeam.class );
                 swap.putExtra("teamId", newTeam.getId());
+                swap.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 CreateTeam.this.startActivity(swap);
+                finish();
             }
         });
         getWindow().setSoftInputMode(

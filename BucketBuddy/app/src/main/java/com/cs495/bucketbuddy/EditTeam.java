@@ -40,9 +40,7 @@ public class EditTeam extends ActionBarActivity {
         Button dButton;
         Button changeTNButton;
 
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-        );
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
         changeTNButton = (Button) findViewById(R.id.changeTeamNameButton);
 

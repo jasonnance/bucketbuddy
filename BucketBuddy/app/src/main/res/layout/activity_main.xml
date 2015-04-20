@@ -22,14 +22,8 @@
         android:layout_below="@+id/logo"
         android:layout_alignLeft="@+id/logo"
         android:layout_alignStart="@+id/logo"
-        android:orientation="vertical">
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/mainGameBtn"
-            android:id="@+id/mainStartBtn"
-            android:layout_marginTop="10dp" />
+        android:orientation="vertical"
+        android:layout_marginTop="30dp">
 
         <Button
             android:layout_width="match_parent"

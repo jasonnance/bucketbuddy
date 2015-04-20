@@ -19,6 +19,16 @@ import java.util.ArrayList;
  * Created by Rafael on 3/30/15.
  */
 public class TeamListActivity extends ActionBarActivity{
+    ExpandableListView expList;
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        expList = (ExpandableListView) findViewById(R.id.exListTeam);
+        expList.setAdapter(new MyAdapter(this));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +44,7 @@ public class TeamListActivity extends ActionBarActivity{
             }
         });
 
-        ExpandableListView expList = (ExpandableListView) findViewById(R.id.exListTeam);
+        expList = (ExpandableListView) findViewById(R.id.exListTeam);
         expList.setAdapter(new MyAdapter(this));
 
 
