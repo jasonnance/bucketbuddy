@@ -88,14 +88,16 @@ public class MyAdapter extends BaseExpandableListAdapter {
         ImageButton btEditTeam = (ImageButton) convertView.findViewById(R.id.btEdtitTeam);
         ImageButton btViewStats = (ImageButton) convertView.findViewById(R.id.btViewTeamStats);
         ImageButton btStartGame = (ImageButton) convertView.findViewById(R.id.btStartGame);
+        ImageButton btDeleteTeam = (ImageButton) convertView.findViewById(R.id.btRemoveTeam);
 
         TextView txView = (TextView) convertView.findViewById(R.id.txTeamName);
 
         btEditTeam.setFocusable(false);
         btViewStats.setFocusable(false);
         btStartGame.setFocusable(false);
-
+        btDeleteTeam.setFocusable(false);
         txView.setText(String.valueOf(parentList.get(groupPosition).getAttr("teamName").toString()));
+        txView.setAllCaps(true);
 
         btEditTeam.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,7 +157,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
 
         TextView txView = (TextView)convertView.findViewById(R.id.txPlayers);
         txView.setText(dbh.getStatEntity(playersID.get(groupPosition).get(childPosition)).getAttr("playerName").toString());
-        convertView.setPadding(60,0,0,0);
+        convertView.setPadding(100,20,0,0);
 
         btEditPlayer.setOnClickListener(new View.OnClickListener() {
             @Override

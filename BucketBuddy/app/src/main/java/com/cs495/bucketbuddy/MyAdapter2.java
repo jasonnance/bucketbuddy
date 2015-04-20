@@ -45,10 +45,15 @@ import java.util.List;
             public void onClick(View v) {
                 DatabaseHelper dbh = new DatabaseHelper(getContext(), null, null,1);
                 dbh.deleteStatEntity(playersId.get(position));
+                Toast toast = Toast.makeText(getContext(), "Player Deleted", Toast.LENGTH_SHORT);
+                toast.show();
+
+
+
                 Team mod = (Team)dbh.getStatEntity(teamId);
                 playersId.remove(position);
                 mod.deletePlayer(position);
-               dbh.updateStatEntity(mod);
+                dbh.updateStatEntity(mod);
 
                 Intent swap;
 
@@ -58,6 +63,8 @@ import java.util.List;
 
             }
         });
+
+        
 
 
 

@@ -24,7 +24,7 @@
         android:id="@+id/btViewTeamStats"
         android:layout_weight="1"
         android:layout_gravity="center_vertical|right"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="20dp" />
 
 
     <ImageButton
@@ -34,7 +34,16 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:layout_gravity="center_vertical|right"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="20dp" />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:id="@+id/btRemoveTeam"
+        android:background="@drawable/delete"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginRight="20dp" />
+    />
 
     <ImageButton
         android:layout_width="wrap_content"
