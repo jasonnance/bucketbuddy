@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.Button;
 import android.app.ActionBar;
 import android.content.Intent;
+import android.widget.TextView;
 
 public class EditPlayer extends ActionBarActivity {
     private static Button submitNumber;
@@ -21,10 +22,12 @@ public class EditPlayer extends ActionBarActivity {
     private static RadioGroup positionGroup;
     private static RadioButton playerPositionAttr;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_player);
+
 
         //EditText editView = new EditText(this);
         //editView.setKeyListener(new DigitsKeyListener());
@@ -35,6 +38,10 @@ public class EditPlayer extends ActionBarActivity {
         positionGroup.check(R.id.radioButton6);
 
         submitNumber = (Button) findViewById(R.id.editPlayerSubmit);
+        final TextView playerName = (TextView) findViewById(R.id.PlayerName);
+        Bundle extras = getIntent().getExtras();
+        playerName.setText(extras.get("playerName").toString());
+
         submitNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,6 +50,7 @@ public class EditPlayer extends ActionBarActivity {
                 Bundle extras = getIntent().getExtras();
                 long playerId = extras.getLong("playerId");
                 long teamId = extras.getLong("teamId");
+
                 Player editedPlayer = editPlayer(playerId);
                 Intent swap = new Intent(EditPlayer.this,EditTeam.class );
                 swap.putExtra("playerId", editedPlayer.getId());

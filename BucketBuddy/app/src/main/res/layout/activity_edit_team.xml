@@ -20,6 +20,16 @@
         android:textColor="#FFFFFF"
         android:layout_weight="0" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/teamName"
+        android:id="@+id/teamName"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0"
+        android:textColor="#0a274f" />
+
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

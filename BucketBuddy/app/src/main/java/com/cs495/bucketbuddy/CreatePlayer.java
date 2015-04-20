@@ -28,9 +28,12 @@ public class CreatePlayer extends ActionBarActivity {
                 long teamId = extras.getLong("teamId");
                 Player newPlayer = createPlayer(teamId);
                 Intent swap = new Intent(CreatePlayer.this,EditPlayer.class );
+                swap.putExtra("playerName",playerNameInput.getText());
                 swap.putExtra("playerId", newPlayer.getId());
                 swap.putExtra("teamId", teamId);
+                swap.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 CreatePlayer.this.startActivity(swap);
+                finish();
             }
         });
         getWindow().setSoftInputMode(

@@ -1,6 +1,8 @@
 package com.cs495.bucketbuddy;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -103,23 +105,36 @@ public class MyAdapter extends BaseExpandableListAdapter {
         btDeleteTeam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                new AlertDialog.Builder(context)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle(R.string.deleteTeam)
+                        .setMessage(R.string.reallyDeleteTeam)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DatabaseHelper dbh = new DatabaseHelper(context, null, null,1);
+                                Team mod = (Team)dbh.getStatEntity(parentList.get(groupPosition).getId());
+                                ArrayList<Long> modPlayers = mod.getPlayerIds();
+                                for (int i = 0; i < mod.getPlayerIds().size(); i++) {
+                                    mod.deletePlayer(Integer.parseInt(modPlayers.get(i).toString()));
+                                }
 
-                DatabaseHelper dbh = new DatabaseHelper(context, null, null,1);
-                Team mod = (Team)dbh.getStatEntity(parentList.get(groupPosition).getId());
-                ArrayList<Long> modPlayers = mod.getPlayerIds();
-                for (int i = 0; i < mod.getPlayerIds().size(); i++) {
-                    mod.deletePlayer(Integer.parseInt(modPlayers.get(i).toString()));
-                }
+                                dbh.updateStatEntity(mod);
+                                dbh.deleteStatEntity(parentList.get(groupPosition).getId());
 
-                dbh.updateStatEntity(mod);
-                dbh.deleteStatEntity(parentList.get(groupPosition).getId());
+                                Toast toast = Toast.makeText(context, "Team Deleted", Toast.LENGTH_SHORT);
+                                toast.show();
+                                Intent swap;
+                                swap = new Intent(context,TeamListActivity.class );
+                                swap.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                context.startActivity(swap);
 
-                Toast toast = Toast.makeText(context, "Team Deleted", Toast.LENGTH_SHORT);
-                toast.show();
-                Intent swap;
-                swap = new Intent(context,TeamListActivity.class );
-                swap.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(swap);
+                            }
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .show();
+
 
 
             }

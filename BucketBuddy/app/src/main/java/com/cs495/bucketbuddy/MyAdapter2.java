@@ -1,6 +1,8 @@
 package com.cs495.bucketbuddy;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,23 +45,39 @@ import java.util.List;
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseHelper dbh = new DatabaseHelper(getContext(), null, null,1);
-                dbh.deleteStatEntity(playersId.get(position));
-                Toast toast = Toast.makeText(getContext(), "Player Deleted", Toast.LENGTH_SHORT);
-                toast.show();
+
+                new AlertDialog.Builder(getContext())
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle(R.string.deletePlayer)
+                        .setMessage(R.string.reallyDeletePlayer)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                DatabaseHelper dbh = new DatabaseHelper(getContext(), null, null,1);
+                                dbh.deleteStatEntity(playersId.get(position));
+
+                                Toast toast = Toast.makeText(getContext(), "Player Deleted", Toast.LENGTH_SHORT);
+                                toast.show();
+                                Team mod = (Team)dbh.getStatEntity(teamId);
+                                playersId.remove(position);
+                                mod.deletePlayer(position);
+                                dbh.updateStatEntity(mod);
+
+                                Intent swap;
+
+                                swap = new Intent(getContext(),EditTeam.class );
+                                swap.putExtra("teamId", teamId);
+                                getContext().startActivity(swap);
+                            }
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .show();
 
 
 
-                Team mod = (Team)dbh.getStatEntity(teamId);
-                playersId.remove(position);
-                mod.deletePlayer(position);
-                dbh.updateStatEntity(mod);
 
-                Intent swap;
 
-                swap = new Intent(getContext(),EditTeam.class );
-                swap.putExtra("teamId", teamId);
-                getContext().startActivity(swap);
 
 
             }

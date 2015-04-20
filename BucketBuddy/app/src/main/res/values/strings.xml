@@ -29,5 +29,11 @@
     <string name="gamescreen_settings">Settings</string>
     <string name="gamescreen_lineup">Current Lineup</string>
     <string name="change_lineup_failure">There must be 5 players in the lineup</string>
+    <string name="deletePlayer">Delete Player</string>
+    <string name="reallyDeletePlayer">Are you sure you want to delete the player?</string>
+    <string name="deleteTeam">Delete Team</string>
+    <string name="reallyDeleteTeam">Are you sure you want to delete the team?</string>
+    <string name="teamName">Medium Text</string>
+
 
 </resources>

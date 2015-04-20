@@ -13,6 +13,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Button;
 import android.content.Intent;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class EditTeam extends ActionBarActivity {
     private Team curTeam;
     private long teamId;
     List<Long> playerId = new ArrayList<Long>();
+    TextView teamName;
 
 
 
@@ -39,6 +41,7 @@ public class EditTeam extends ActionBarActivity {
         Button createPlayerButton;
         Button dButton;
         Button changeTNButton;
+        teamName = (TextView)findViewById(R.id.teamName);
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
@@ -60,6 +63,9 @@ public class EditTeam extends ActionBarActivity {
         //oldTeamName = curTeam.getAttr("teamName").toString();
         oldTeam = curTeam.getAttr("teamName").toString();
         context  = getApplicationContext();
+
+        teamName.setText(oldTeam);
+
 
         changeTNButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,5 +155,6 @@ public class EditTeam extends ActionBarActivity {
         text = "Team name changed from \"" + oldTeam + "\" to \"" + newTeamName + "\".";
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+        teamName.setText(newTeamName);
     }
 }
