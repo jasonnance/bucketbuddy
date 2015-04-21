@@ -82,6 +82,7 @@ public class MultiSpinner extends Spinner {
         new AlertDialog.Builder(getContext())
                 .setMultiChoiceItems(entriesArray, selected, mOnMultiChoiceClickListener)
                 .setPositiveButton(android.R.string.ok, mOnClickListener)
+                .setTitle(R.string.set_lineup_title)
                 .show();
         return true;
     }

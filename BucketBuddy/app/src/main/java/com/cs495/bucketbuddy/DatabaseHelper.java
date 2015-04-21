@@ -167,6 +167,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Season> seasons = entity.getSeasons();
         ContentValues seasonValues = new ContentValues();
         for (int i = 0; i < seasons.size(); i++) {
+            Log.d("gamescreenDebug", "updating season " + String.valueOf(i));
             seasonValues.put("seasonNumber", i);
             seasonValues.put("entityID", entity.getId());
             db.replace("Season", null, seasonValues);
@@ -176,6 +177,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             ArrayList<Game> games = seasons.get(i).getGames();
             ContentValues gameValues = new ContentValues();
             for (int j = 0; j < games.size(); j++) {
+                Log.d("gamescreenDebug", "updating game " + String.valueOf(j));
                 gameValues.put("seasonNumber", i);
                 gameValues.put("entityID", entity.getId());
                 gameValues.put("gameNumber", j);
@@ -185,6 +187,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 // Add all the game's stats to the GameStat table
                 ContentValues gameStats = new ContentValues();
                 for (String statName : games.get(j).getAllStatNames()) {
+                    Log.d("gamescreenDebug", "updating game " + String.valueOf(j) + " with game stat " + statName);
                     gameStats.put("statName", statName);
                     gameStats.put("statVal", serialize(games.get(j).getStat(statName)));
                     gameStats.put("gameNumber", j);

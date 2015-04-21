@@ -166,7 +166,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 Intent swap;
-                swap = new Intent(context,GameScreenActivity.class );
+                swap = new Intent(context,SelectSeason.class );
                 Long teamId= parentList.get(groupPosition).getId();
                 swap.putExtra("teamId", teamId);
                 context.startActivity(swap);

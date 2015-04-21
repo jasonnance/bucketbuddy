@@ -12,6 +12,7 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -21,7 +22,7 @@
         </activity>
         <activity
             android:name=".TeamListActivity"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs495.bucketbuddy.MainActivity" />
@@ -61,6 +62,14 @@
         <activity
             android:name=".ViewEntityStatsActivity"
             android:label="@string/title_activity_view_entity_stats"
+            android:parentActivityName=".TeamListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs495.bucketbuddy.TeamListActivity" />
+        </activity>
+        <activity
+            android:name=".SelectSeason"
+            android:label="@string/title_activity_select_season"
             android:parentActivityName=".TeamListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

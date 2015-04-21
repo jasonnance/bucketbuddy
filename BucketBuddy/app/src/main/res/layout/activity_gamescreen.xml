@@ -32,7 +32,8 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:id="@+id/textView4"
             android:layout_gravity="center_horizontal"
-            android:text="@string/gamescreen_lineup" />
+            android:text="@string/gamescreen_lineup"
+            android:textColor="#FFFFFF" />
 
         <com.cs495.bucketbuddy.MultiSpinner
             android:layout_width="match_parent"
@@ -52,6 +53,14 @@
         android:text="@string/rebounds"
         android:id="@+id/btn_rebound"
         android:layout_gravity="center_horizontal|bottom" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/end_game"
+        android:id="@+id/btn_end_game"
+        android:layout_gravity="right|bottom" />
 
 
 </FrameLayout>
