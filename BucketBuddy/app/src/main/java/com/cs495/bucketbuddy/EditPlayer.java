@@ -27,6 +27,7 @@ public class EditPlayer extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_player);
+        String sPlayerName;
 
 
         //EditText editView = new EditText(this);
@@ -40,8 +41,8 @@ public class EditPlayer extends ActionBarActivity {
         submitNumber = (Button) findViewById(R.id.editPlayerSubmit);
         final TextView playerName = (TextView) findViewById(R.id.PlayerName);
         Bundle extras = getIntent().getExtras();
-        playerName.setText(extras.get("playerName").toString());
-
+        sPlayerName = extras.get("playerName").toString();
+        playerName.setText(sPlayerName);
         submitNumber.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

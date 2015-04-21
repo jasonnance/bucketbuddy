@@ -207,6 +207,9 @@ public class MyAdapter extends BaseExpandableListAdapter {
                 swap = new Intent(context,EditPlayer.class );
                 Long playerID = playersID.get(groupPosition).get(childPosition);
                 swap.putExtra("playerId", playerID);
+                String playerName = dbHelper.getStatEntity(playerID).getAttr("playerName").toString();
+                swap.putExtra("playerName",playerName);
+
                 Long teamId= parentList.get(groupPosition).getId();
                 swap.putExtra("teamId", teamId);
                 context.startActivity(swap);
