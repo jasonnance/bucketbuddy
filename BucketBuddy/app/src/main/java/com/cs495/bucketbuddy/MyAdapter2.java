@@ -67,6 +67,7 @@ import java.util.List;
                                 Intent swap;
 
                                 swap = new Intent(getContext(),EditTeam.class );
+                                swap.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 swap.putExtra("teamId", teamId);
                                 getContext().startActivity(swap);
                             }
