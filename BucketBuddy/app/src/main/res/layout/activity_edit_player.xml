@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -6,126 +6,169 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.cs495.bucketbuddy.EditPlayer"
     android:background="#CC3300"
-    android:id="@+id/EditPlayer">
+    android:orientation="vertical"
+    android:id="@+id/EditPlayer"
+    android:weightSum="1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Edit Player"
-        android:id="@+id/editPlayerTitle"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#FFFFFF" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Player Number"
-        android:id="@+id/editPlayerInst"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/editPlayerTitle"
-        android:layout_alignRight="@+id/textView3"
-        android:layout_alignEnd="@+id/textView3" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/pNumberText"
-        android:background="#FFFFFF"
-        android:textColor="#000000"
-        android:layout_alignTop="@+id/editPlayerInst"
-        android:layout_toRightOf="@+id/editPlayerInst"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginLeft="55dp" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:id="@+id/editPlayerSubmit"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Player Position"
-        android:id="@+id/textView3"
-        android:textColor="#FFFFFF"
-        android:layout_marginTop="15dp"
-        android:layout_below="@+id/pNumberText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignTop="@+id/textView3"
-        android:layout_alignLeft="@+id/pNumberText"
-        android:id="@+id/rgPosition">
-        <RadioButton
+        android:layout_weight="0.16">
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Point Guard"
-            android:id="@+id/radioButton"
-            android:textColor="#FFFFFF"
-            android:buttonTint="#FFFFFF" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Edit Player"
+            android:id="@+id/editPlayerTitle"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textColor="#FFFFFF" />
 
-        <RadioButton
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shooting Guard"
-            android:id="@+id/radioButton2"
-            android:textColor="#FFFFFF"
-            android:buttonTint="#FFFFFF" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/PlayerName"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textColor="#0a274f"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="0dp" />
+    </LinearLayout>
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Small Forward"
-            android:id="@+id/radioButton3"
-            android:textColor="#FFFFFF"
-            android:buttonTint="#FFFFFF" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Power Forward"
-            android:id="@+id/radioButton4"
-            android:textColor="#FFFFFF"
-            android:buttonTint="#FFFFFF" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Center"
-            android:id="@+id/radioButton5"
-            android:textColor="#FFFFFF"
-            android:buttonTint="#FFFFFF" />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Unknown/Not Set"
-            android:id="@+id/radioButton6"
-            android:textColor="#FFFFFF"
-            android:buttonTint="#FFFFFF" />
-    </RadioGroup>
-
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medium Text"
-        android:id="@+id/PlayerName"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textColor="#0a274f" />
-</RelativeLayout>
+        android:layout_marginTop="20dp"
+        android:layout_weight="0">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Player Number"
+            android:id="@+id/editPlayerInst"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/editPlayerTitle"
+            android:layout_alignRight="@+id/textView3"
+            android:layout_alignEnd="@+id/textView3"
+            android:layout_gravity="center_horizontal" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/pNumberText"
+            android:background="#FFFFFF"
+            android:textColor="#000000"
+            android:layout_alignTop="@+id/editPlayerInst"
+            android:layout_toRightOf="@+id/editPlayerInst"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="55dp"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="200dp"
+        android:weightSum="1"
+        android:layout_weight="0.64">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Player Position"
+            android:id="@+id/textView3"
+            android:textColor="#FFFFFF"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp" />
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="165dp"
+            android:layout_height="109dp"
+            android:id="@+id/rgPosition"
+            android:layout_gravity="left|center_vertical|right"
+            android:layout_weight="3.06"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/editPlayerSubmit"
+            android:layout_toStartOf="@+id/editPlayerSubmit"
+            android:layout_marginTop="10dp">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Point Guard"
+                android:id="@+id/radioButton"
+                android:textColor="#FFFFFF"
+                android:buttonTint="#FFFFFF" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shooting Guard"
+                android:id="@+id/radioButton2"
+                android:textColor="#FFFFFF"
+                android:buttonTint="#FFFFFF" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Small Forward"
+                android:id="@+id/radioButton3"
+                android:textColor="#FFFFFF"
+                android:buttonTint="#FFFFFF" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Power Forward"
+                android:id="@+id/radioButton4"
+                android:textColor="#FFFFFF"
+                android:buttonTint="#FFFFFF" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Center"
+                android:id="@+id/radioButton5"
+                android:textColor="#FFFFFF"
+                android:buttonTint="#FFFFFF" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unknown/Not Set"
+                android:id="@+id/radioButton6"
+                android:textColor="#FFFFFF"
+                android:buttonTint="#FFFFFF" />
+
+        </RadioGroup>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:id="@+id/editPlayerSubmit"
+            android:layout_gravity="right"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="50dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
