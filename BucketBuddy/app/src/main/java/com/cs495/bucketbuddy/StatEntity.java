@@ -17,6 +17,8 @@ public abstract class StatEntity {
     protected HashMap<String,Object> attrs;
     protected ArrayList<Season> seasons;
 
+    public static final String[] requiredStats = new String[] {"points","rebounds","assists"};
+
     /**
      * Returns the last game in the last season, which is the current game
      * the StatEntity is involved in.

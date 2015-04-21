@@ -34,6 +34,14 @@
     <string name="deleteTeam">Delete Team</string>
     <string name="reallyDeleteTeam">Are you sure you want to delete the team?</string>
     <string name="teamName">Medium Text</string>
+    <string name="title_activity_select_season">Select Season</string>
+    <string name="newSeason">New Season</string>
+    <string name="season">Season</string>
+    <string name="games">Games</string>
+    <string name="start_game">Start Game</string>
+    <string name="credit_stat_title">Credit a Stat</string>
+    <string name="set_lineup_title">Select Lineup</string>
+    <string name="end_game">End Game</string>
 
 
 </resources>

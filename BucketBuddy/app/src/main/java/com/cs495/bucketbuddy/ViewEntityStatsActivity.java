@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,6 +38,8 @@ public class ViewEntityStatsActivity extends ActionBarActivity {
         setContentView(R.layout.activity_view_entity_stats);
         long entityId = getIntent().getExtras().getLong("entityId");
         entity = new DatabaseHelper(this, null, null, 1).getStatEntity(entityId);
+
+        /*
         // Placeholder test code
         entity = new Team();
         TeamGame testGame = new TeamGame();
@@ -51,6 +54,7 @@ public class ViewEntityStatsActivity extends ActionBarActivity {
         testSeason.addGame(testGame);
         testSeason.addGame(testGame2);
         entity.addSeason(testSeason);
+        */
 
         generateSpinner();
         displaySelectedStat();
