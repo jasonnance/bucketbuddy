@@ -108,9 +108,7 @@ public class GameScreenActivity extends ActionBarActivity {
         CharSequence[] playerDisplay = new CharSequence[lineup.size()];
 
         for (int i = 0; i < lineup.size(); i++) {
-            playerDisplay[i] = String.valueOf((int) players.get(i).getAttr("playerNumber")) + " " +
-                    (String) players.get(i).getAttr("playerName") + " " +
-                    Player.abbreviatePosition((String) players.get(i).getAttr("playerPosition"));
+            playerDisplay[i] = players.get(i).toString();
         }
         attributedPlayer = players.get(lineup.get(0));
         new AlertDialog.Builder(this)
@@ -133,11 +131,13 @@ public class GameScreenActivity extends ActionBarActivity {
     private void initializeStats() {
 
         // Start out each stat at 0
-        for (int i = 0; i < StatEntity.REQUIRED_STATS.length; i++) {
+        for (int i = 0; i < Player.REQUIRED_STATS.length; i++) {
             for (Player player : players) {
-                player.setGameStat(StatEntity.REQUIRED_STATS[i], 0);
+                player.setGameStat(Player.REQUIRED_STATS[i], 0);
             }
-            team.setGameStat(StatEntity.REQUIRED_STATS[i], 0);
+        }
+        for (int i = 0; i < Team.REQUIRED_STATS.length; i++) {
+            team.setGameStat(Team.REQUIRED_STATS[i], 0);
         }
     }
 
@@ -145,14 +145,13 @@ public class GameScreenActivity extends ActionBarActivity {
 
         // Set the team stat to be the sum of all the player stats
         int curStatValue;
-        for (int i = 0; i < StatEntity.REQUIRED_STATS.length; i++) {
+        for (int i = 0; i < Player.REQUIRED_STATS.length; i++) {
             curStatValue = 0;
             for (Player player : players) {
-                curStatValue += (int) player.getGameStat(StatEntity.REQUIRED_STATS[i]);
+                curStatValue += (int) player.getGameStat(Player.REQUIRED_STATS[i]);
             }
-            team.setGameStat(StatEntity.REQUIRED_STATS[i], curStatValue);
+            team.setGameStat(Player.REQUIRED_STATS[i], curStatValue);
         }
-
 
         dbHelper.updateStatEntity(team);
         for (Player player : players) {

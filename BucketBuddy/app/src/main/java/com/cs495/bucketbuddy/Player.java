@@ -71,4 +71,11 @@ public class Player extends StatEntity {
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return String.valueOf((int) getAttr("playerNumber")) + " " +
+                getAttr("playerName") + " " +
+                abbreviatePosition((String) getAttr("playerPosition"));
+    }
 }

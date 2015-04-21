@@ -11,6 +11,10 @@ public class Team extends StatEntity{
 
     private ArrayList<Long> playerIds;
 
+    public static final String[] REQUIRED_STATS = new String[] {"points","rebounds","assists",
+            "ftm","fta","fouls","turnovers","blocks","steals","fgm","fga","2pm","2pa","3pm","3pa",
+            "oppScore"};
+
     /**
      * Initializes a new team with no attributes,
      * seasons, or players and a null id.

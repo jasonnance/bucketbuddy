@@ -23,6 +23,7 @@ public class SelectSeason extends ActionBarActivity {
     private ArrayList<Player> players = new ArrayList<Player>();
     private DatabaseHelper dbHelper;
     private int seasonNumber;
+    private Button btn_start_game;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,8 @@ public class SelectSeason extends ActionBarActivity {
         for (long playerId : team.getPlayerIds()) {
             players.add((Player) dbHelper.getStatEntity(playerId));
         }
-
-        findViewById(R.id.btn_start_game).setOnClickListener(new View.OnClickListener() {
+        btn_start_game = (Button) findViewById(R.id.btn_start_game);
+        btn_start_game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startGame();
@@ -102,6 +103,15 @@ public class SelectSeason extends ActionBarActivity {
         }
         choices[numSeasons] = getResources().getString(R.string.newSeason);
 
+        // Button should only be clickable by default if "new season" or the most recent
+        // season is the default choice in the spinner
+        if (numSeasons == 0 || numSeasons == 1) {
+            btn_start_game.setEnabled(true);
+        }
+        else {
+            btn_start_game.setEnabled(false);
+        }
+
         Spinner spinner = (Spinner) findViewById(R.id.season_select_spinner);
         spinner.setAdapter(new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,
                 choices));
@@ -110,6 +120,13 @@ public class SelectSeason extends ActionBarActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 seasonNumber = position;
+                // We can only start a game in a new season or the most recent season
+                if (position == numSeasons || position == numSeasons-1) {
+                    btn_start_game.setEnabled(true);
+                }
+                else {
+                    btn_start_game.setEnabled(false);
+                }
             }
 
             @Override
