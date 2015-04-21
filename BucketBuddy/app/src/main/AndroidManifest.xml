@@ -26,14 +26,12 @@
         </activity>
         <activity
             android:name=".TeamListActivity"
-<<<<<<< HEAD
+
 
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait">
 
-=======
-            android:parentActivityName=".MainActivity" >
->>>>>>> origin/master
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs495.bucketbuddy.MainActivity" />
