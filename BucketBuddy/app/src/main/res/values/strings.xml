@@ -37,11 +37,21 @@
     <string name="title_activity_select_season">Select Season</string>
     <string name="newSeason">New Season</string>
     <string name="season">Season</string>
-    <string name="games">Games</string>
+    <string name="games">Game(s)</string>
     <string name="start_game">Start Game</string>
     <string name="credit_stat_title">Credit a Stat</string>
     <string name="set_lineup_title">Select Lineup</string>
     <string name="end_game">End Game</string>
+    <string name="opponent">Opponent</string>
+    <string name="team_name">Team Name</string>
+    <string name="rebound">Rebound</string>
+    <string name="assist">Assist</string>
+    <string name="free_throw">Free Throw</string>
+    <string name="block">Block</string>
+    <string name="steal">Steal</string>
+    <string name="turnover">Turnover</string>
+    <string name="foul">Foul</string>
+    <string name="opponent_score">Opp. Score</string>
 
 
 </resources>

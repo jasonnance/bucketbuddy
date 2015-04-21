@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -6,25 +6,67 @@
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
     android:id="@+id/gamescreeID"
     android:clickable="false"
-    android:background="#CC3300">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:src="@drawable/quadra"
-        android:layout_marginTop="40dp" />
+    android:background="#CC3300"
+    android:orientation="vertical">
 
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/gamescreen_lineup_layout">
+        <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"
+            android:stretchColumns="&quot;&quot;">
 
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:measureWithLargestChild="false">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/team_name"
+                    android:id="@+id/txt_team_name"
+                    android:gravity="left"
+                    android:textColor="#FFFFFF"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/opponent"
+                    android:id="@+id/txt_opponent_name"
+                    android:gravity="right"
+                    android:textColor="#FFFFFF"
+                    android:layout_weight="1" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="0"
+                    android:id="@+id/txt_team_score"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="0"
+                    android:id="@+id/txt_opponent_score"
+                    android:layout_weight="1"
+                    android:layout_gravity="right"
+                    android:textAlignment="gravity"
+                    android:gravity="right"
+                    android:paddingRight="10dp" />
+            </TableRow>
+        </TableLayout>
 
         <TextView
             android:layout_width="wrap_content"
@@ -38,29 +80,137 @@
         <com.cs495.bucketbuddy.MultiSpinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lineup_multispinner"/><![CDATA[
+            android:id="@+id/lineup_multispinner"/>
 
-
-        >
-
-    ]]>
-    </LinearLayout>
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/rebounds"
-        android:id="@+id/btn_rebound"
-        android:layout_gravity="center_horizontal|bottom" />
+        android:layout_height="wrap_content">
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/end_game"
-        android:id="@+id/btn_end_game"
-        android:layout_gravity="right|bottom" />
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView"
+                android:src="@drawable/quadra"
+                android:layout_marginTop="-20dp"
+                android:layout_marginBottom="-40dp" />
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView2"
+            android:src="@drawable/quadra_overlay"
+            android:layout_marginTop="-20dp"
+            android:layout_marginBottom="-40dp" />
+
+    </FrameLayout>
+
+    <TableLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/rebound"
+                    android:id="@+id/btn_rebound"
+                    android:layout_gravity="center_horizontal|bottom"
+                    android:layout_weight="1"
+                    android:layout_column="0" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/assist"
+                    android:id="@+id/btn_assist"
+                    android:layout_column="1"
+                    android:layout_weight="1" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/free_throw"
+                    android:id="@+id/btn_free_throw"
+                    android:layout_column="2"
+                    android:layout_weight="1" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/foul"
+                    android:id="@+id/btn_foul"
+                    android:layout_column="0"
+                    android:layout_weight="1" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/turnover"
+                    android:id="@+id/btn_turnover"
+                    android:layout_column="1"
+                    android:layout_weight="1" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/block"
+                    android:id="@+id/btn_block"
+                    android:layout_column="2"
+                    android:layout_weight="1" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/steal"
+                    android:id="@+id/btn_steal"
+                    android:layout_column="0"
+                    android:layout_weight="1" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/end_game"
+                    android:id="@+id/btn_end_game"
+                    android:layout_gravity="right|bottom"
+                    android:layout_column="1"
+                    android:layout_weight="1" />
+
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/opponent_score"
+                    android:id="@+id/btn_opp_score"
+                    android:layout_column="2"
+                    android:layout_weight="1" />
+            </TableRow>
+        </TableLayout>
 
 
-</FrameLayout>
+</LinearLayout>

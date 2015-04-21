@@ -86,14 +86,16 @@ public class ViewEntityStatsActivity extends ActionBarActivity {
     }
 
     private void generateSpinner() {
-        String[] choices;
+        String[] choices = StatEntity.REQUIRED_STATS;
 
+        /*
         // Generate different choices based on the entity type
         if (entity instanceof Player) {
             choices = new String[]{"points", "rebounds", "assists"};
         } else {
             choices = new String[]{"points", "rebounds", "assists"};
         }
+        */
 
         Spinner spinner = (Spinner) findViewById(R.id.entityGraphSelectStat);
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,

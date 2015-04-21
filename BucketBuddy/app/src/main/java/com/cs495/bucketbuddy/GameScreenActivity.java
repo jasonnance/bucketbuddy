@@ -9,11 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.view.Window;
 
 import java.util.ArrayList;
 
@@ -33,7 +29,7 @@ public class GameScreenActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gamescreen);
+        this.setContentView(R.layout.activity_gamescreen);
         long teamId = getIntent().getExtras().getLong("teamId");
 
         // Load the team and players from the database
@@ -109,13 +105,16 @@ public class GameScreenActivity extends ActionBarActivity {
     }
 
     private void addStat(final String statName) {
-        CharSequence[] playerNames = new CharSequence[lineup.size()];
+        CharSequence[] playerDisplay = new CharSequence[lineup.size()];
+
         for (int i = 0; i < lineup.size(); i++) {
-            playerNames[i] = (String) players.get(i).getAttr("playerName");
+            playerDisplay[i] = String.valueOf((int) players.get(i).getAttr("playerNumber")) + " " +
+                    (String) players.get(i).getAttr("playerName") + " " +
+                    Player.abbreviatePosition((String) players.get(i).getAttr("playerPosition"));
         }
         attributedPlayer = players.get(lineup.get(0));
         new AlertDialog.Builder(this)
-                .setSingleChoiceItems(playerNames, 0, new DialogInterface.OnClickListener() {
+                .setSingleChoiceItems(playerDisplay, 0, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         attributedPlayer = players.get(lineup.get(which));
@@ -134,11 +133,11 @@ public class GameScreenActivity extends ActionBarActivity {
     private void initializeStats() {
 
         // Start out each stat at 0
-        for (int i = 0; i < StatEntity.requiredStats.length; i++) {
+        for (int i = 0; i < StatEntity.REQUIRED_STATS.length; i++) {
             for (Player player : players) {
-                player.setGameStat(StatEntity.requiredStats[i], 0);
+                player.setGameStat(StatEntity.REQUIRED_STATS[i], 0);
             }
-            team.setGameStat(StatEntity.requiredStats[i], 0);
+            team.setGameStat(StatEntity.REQUIRED_STATS[i], 0);
         }
     }
 
@@ -146,12 +145,12 @@ public class GameScreenActivity extends ActionBarActivity {
 
         // Set the team stat to be the sum of all the player stats
         int curStatValue;
-        for (int i = 0; i < StatEntity.requiredStats.length; i++) {
+        for (int i = 0; i < StatEntity.REQUIRED_STATS.length; i++) {
             curStatValue = 0;
             for (Player player : players) {
-                curStatValue += (int) player.getGameStat(StatEntity.requiredStats[i]);
+                curStatValue += (int) player.getGameStat(StatEntity.REQUIRED_STATS[i]);
             }
-            team.setGameStat(StatEntity.requiredStats[i], curStatValue);
+            team.setGameStat(StatEntity.REQUIRED_STATS[i], curStatValue);
         }
 
 

@@ -48,4 +48,27 @@ public class Player extends StatEntity {
     public void addSeason(PlayerSeason season) {
         seasons.add((Season) season);
     }
+
+    public static String abbreviatePosition(String position) {
+        String result;
+        if (position.equals("Point Guard")) {
+            result = "PG";
+        }
+        else if (position.equals("Shooting Guard")) {
+            result = "SG";
+        }
+        else if (position.equals("Small Forward")) {
+            result = "SF";
+        }
+        else if (position.equals("Power Forward")) {
+            result = "PF";
+        }
+        else if (position.equals("Center")) {
+            result = "C";
+        }
+        else {
+            result = "";
+        }
+        return result;
+    }
 }

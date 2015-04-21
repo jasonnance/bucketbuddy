@@ -18,8 +18,8 @@
         </activity>
         <activity android:name=".AboutActivity" >
         </activity>
-        <activity android:name=".GameScreenActivity" >
-        </activity>
+        <activity android:name=".GameScreenActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"  />
         <activity
             android:name=".TeamListActivity"
             android:parentActivityName=".MainActivity" >
