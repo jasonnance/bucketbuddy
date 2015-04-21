@@ -37,12 +37,21 @@
         <com.cs495.bucketbuddy.MultiSpinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lineup_multispinner"/>
+            android:id="@+id/lineup_multispinner"/><![CDATA[
 
 
         >
 
+    ]]>
     </LinearLayout>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/rebounds"
+        android:id="@+id/btn_rebound"
+        android:layout_gravity="center_horizontal|bottom" />
 
 
 </FrameLayout>

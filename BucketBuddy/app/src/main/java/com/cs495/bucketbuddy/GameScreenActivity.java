@@ -1,5 +1,7 @@
 package com.cs495.bucketbuddy;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -21,6 +23,7 @@ public class GameScreenActivity extends ActionBarActivity {
     private Team team;
     private ArrayList<Player> players;
     private DatabaseHelper dbHelper;
+    private Player attributedPlayer;
 
     // Store the indices in the players list of the players currently on the floor
     private ArrayList<Integer> lineup = new ArrayList<Integer>();
@@ -59,6 +62,13 @@ public class GameScreenActivity extends ActionBarActivity {
             }
         });
 
+        ((Button) findViewById(R.id.btn_rebound)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addStat("rebounds");
+            }
+        });
+
 
     }
 
@@ -81,5 +91,33 @@ public class GameScreenActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void addStat(final String statName) {
+        CharSequence[] playerNames = new CharSequence[lineup.size()];
+        for (int i = 0; i < lineup.size(); i++) {
+            playerNames[i] = (String) players.get(i).getAttr("playerName");
+        }
+        new AlertDialog.Builder(this)
+                .setSingleChoiceItems(playerNames, 0, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        attributedPlayer = players.get(lineup.get(which));
+                    }
+                })
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Object gameStat = attributedPlayer.getGameStat(statName);
+                        int newGameStat;
+                        if (gameStat != null) {
+                            newGameStat = (int) attributedPlayer.getGameStat(statName) + 1;
+                        } else {
+                            newGameStat = 1;
+                        }
+                        attributedPlayer.setGameStat(statName, newGameStat);
+                    }
+                })
+                .show();
     }
 }
