@@ -98,23 +98,17 @@ public class SelectSeason extends ActionBarActivity {
         String[] choices = new String[numSeasons+1];
         for (int i = 0; i < numSeasons; i++) {
             choices[i] = getResources().getString(R.string.season) + " " + String.valueOf(i)
-                + " (" + String.valueOf(team.getSeasons().get(i).getGames().size())
-                + " " + getResources().getString(R.string.games) + ")";
+                + " - " + String.valueOf(team.getSeasons().get(i).getGames().size())
+                + " " + getResources().getString(R.string.games);
         }
         choices[numSeasons] = getResources().getString(R.string.newSeason);
 
-        // Button should only be clickable by default if "new season" or the most recent
-        // season is the default choice in the spinner
-        if (numSeasons == 0 || numSeasons == 1) {
-            btn_start_game.setEnabled(true);
-        }
-        else {
-            btn_start_game.setEnabled(false);
-        }
-
         Spinner spinner = (Spinner) findViewById(R.id.season_select_spinner);
+
+        // Make the default be the most recent season
         spinner.setAdapter(new ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item,
                 choices));
+        spinner.setSelection(numSeasons-1);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

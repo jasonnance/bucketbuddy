@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -21,6 +22,9 @@ public class GameScreenActivity extends ActionBarActivity {
     private ArrayList<Player> players;
     private DatabaseHelper dbHelper;
     private Player attributedPlayer;
+    private TextView teamScoreDisplay;
+    private TextView oppScoreDisplay;
+    private int selection;
 
     // Store the indices in the players list of the players currently on the floor
     private ArrayList<Integer> lineup = new ArrayList<Integer>();
@@ -44,7 +48,7 @@ public class GameScreenActivity extends ActionBarActivity {
         MultiSpinner lineupSelector = (MultiSpinner) findViewById(R.id.lineup_multispinner);
         ArrayList<String> playerNames = new ArrayList<String>();
         for (Player player : players) {
-            playerNames.add((String) player.getAttr("playerName"));
+            playerNames.add(player.toString());
         }
         lineupSelector.setItems(playerNames);
         lineupSelector.setMultiSpinnerListener(new MultiSpinner.MultiSpinnerListener() {
@@ -69,9 +73,19 @@ public class GameScreenActivity extends ActionBarActivity {
         findViewById(R.id.btn_end_game).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                endGame();
+                confirmEndGame();
             }
         });
+
+        findViewById(R.id.btn_opp_score).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addStat("oppScore");
+            }
+        });
+
+        teamScoreDisplay = (TextView) findViewById(R.id.txt_team_score);
+        oppScoreDisplay = (TextView) findViewById(R.id.txt_opponent_score);
         initializeStats();
         lineupSelector.performClick();
 
@@ -105,6 +119,30 @@ public class GameScreenActivity extends ActionBarActivity {
     }
 
     private void addStat(final String statName) {
+        if (statName.equals("oppScore")) {
+            final CharSequence[] pointValues = new CharSequence[] {"1", "2", "3"};
+            selection = 1;
+            new AlertDialog.Builder(this)
+                    .setSingleChoiceItems(pointValues, 1, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            selection = which;
+                        }
+                    })
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            int newOppScore = (int) team.getGameStat("oppScore") +
+                                    Integer.parseInt((String) pointValues[selection]);
+                            team.setGameStat("oppScore", newOppScore);
+                            oppScoreDisplay.setText(String.valueOf(newOppScore));
+
+                        }
+                    })
+                    .setTitle(R.string.set_point_value)
+                    .show();
+            return;
+        }
         CharSequence[] playerDisplay = new CharSequence[lineup.size()];
 
         for (int i = 0; i < lineup.size(); i++) {
@@ -157,6 +195,22 @@ public class GameScreenActivity extends ActionBarActivity {
         for (Player player : players) {
             dbHelper.updateStatEntity(player);
         }
+    }
+
+    private void confirmEndGame() {
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle(R.string.endGame)
+                .setMessage(R.string.reallyEndGame)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        endGame();
+                    }
+                })
+                .setNegativeButton(R.string.no, null)
+                .show();
     }
 
     private void endGame() {

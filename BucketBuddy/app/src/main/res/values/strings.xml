@@ -33,6 +33,8 @@
     <string name="reallyDeletePlayer">Are you sure you want to delete the player?</string>
     <string name="deleteTeam">Delete Team</string>
     <string name="reallyDeleteTeam">Are you sure you want to delete the team?</string>
+    <string name="endGame">End Game</string>
+    <string name="reallyEndGame">Are you sure you want to end the game?</string>
     <string name="teamName">Medium Text</string>
     <string name="title_activity_select_season">Select Season</string>
     <string name="newSeason">New Season</string>
@@ -52,6 +54,7 @@
     <string name="turnover">Turnover</string>
     <string name="foul">Foul</string>
     <string name="opponent_score">Opp. Score</string>
+    <string name="set_point_value">Set Point Value</string>
 
 
 </resources>
