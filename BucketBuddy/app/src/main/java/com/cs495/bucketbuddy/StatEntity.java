@@ -18,7 +18,8 @@ public abstract class StatEntity {
     protected ArrayList<Season> seasons;
 
     public static final String[] REQUIRED_STATS = new String[] {"points","rebounds","assists",
-            "ftm","fta","fouls","turnovers","blocks","steals","fgm","fga","2pm","2pa","3pm","3pa"};
+            "ftm","fta","fouls","turnovers","blocks","steals","fgm","fga","2pm","2pa","3pm","3pa",
+            "shotCoords"};
 
     /**
      * Returns the last game in the last season, which is the current game

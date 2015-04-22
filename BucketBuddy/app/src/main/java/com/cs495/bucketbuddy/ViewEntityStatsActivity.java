@@ -154,3 +154,4 @@ public class ViewEntityStatsActivity extends ActionBarActivity {
 }
 
 // TODO add ability to view stats by season
+// TODO make stats prettier

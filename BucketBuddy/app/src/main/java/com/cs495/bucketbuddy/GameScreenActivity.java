@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -26,6 +27,8 @@ public class GameScreenActivity extends ActionBarActivity {
     private ArrayList<Player> players;
     private DatabaseHelper dbHelper;
     private Player attributedPlayer;
+    private int curShotX;
+    private int curShotY;
     private TextView teamScoreDisplay;
     private TextView oppScoreDisplay;
     private int selection;
@@ -140,6 +143,8 @@ public class GameScreenActivity extends ActionBarActivity {
                 int touchColor = getTouchColor(R.id.court_overlay, evX, evY);
                 switch (action) {
                     case MotionEvent.ACTION_UP:
+                        curShotX = evX;
+                        curShotY = evY;
                         if (closeMatchColor(Color.RED, touchColor, 25)) {
                             // it's a 2 point attempt
                             promptStatCredit("2pa");
@@ -311,14 +316,17 @@ public class GameScreenActivity extends ActionBarActivity {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // Add the shot coords if it was a field goal (i.e. not a free throw)
+                        if (statName.equals("2pa") || statName.equals("3pa")) {
+                            addStat("fgm");
+                            addShot(true);
+                        }
                         if (statName.equals("2pa")) {
                             addStat("2pm");
-                            addStat("fgm");
                             addStat("points",2);
                             addTeamScore(2);
                         } else if (statName.equals("3pa")) {
                             addStat("3pm");
-                            addStat("fgm");
                             addStat("points",3);
                             addTeamScore(3);
                         } else if (statName.equals("fta")) {
@@ -331,7 +339,10 @@ public class GameScreenActivity extends ActionBarActivity {
                 .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        return;
+                        if (statName.equals("2pa") || statName.equals("3pa")) {
+                            addShot(false);
+
+                        }
                     }
                 })
                 .setTitle(R.string.prompt_make)
@@ -339,19 +350,43 @@ public class GameScreenActivity extends ActionBarActivity {
     }
 
     /*
-    Set each required stat for the team and all of its players to 0 so that we can just increment
+     Add a shot to the attributed player's list of shot coords.
+      */
+    private void addShot(boolean made) {
+        ArrayList<Shot> newShotCoords = (ArrayList<Shot>) attributedPlayer.getGameStat("shotCoords");
+        newShotCoords.add(new Shot(curShotX, curShotY, made));
+        attributedPlayer.setGameStat("shotCoords",newShotCoords);
+    }
+
+    /*
+    Set each required stat for the team and all of its players to 0/empty
+    so that we can just increment
     them as we go without worrying about any of them being null.
      */
     private void initializeStats() {
-
         // Start out each stat at 0
         for (int i = 0; i < Player.REQUIRED_STATS.length; i++) {
             for (Player player : players) {
-                player.setGameStat(Player.REQUIRED_STATS[i], 0);
+                // Shot coords must be initialized as a list of pairs
+                if (Player.REQUIRED_STATS[i].equals("shotCoords")) {
+                    player.setGameStat(Player.REQUIRED_STATS[i],
+                            new ArrayList<Shot>());
+                }
+                // Everything else is just an integer
+                else {
+                    player.setGameStat(Player.REQUIRED_STATS[i], 0);
+                }
             }
         }
         for (int i = 0; i < Team.REQUIRED_STATS.length; i++) {
-            team.setGameStat(Team.REQUIRED_STATS[i], 0);
+            // Shot coords are handled same as above
+            if (Team.REQUIRED_STATS[i].equals("shotCoords")) {
+                team.setGameStat(Team.REQUIRED_STATS[i],
+                        new ArrayList<Shot>());
+            }
+            else {
+                team.setGameStat(Team.REQUIRED_STATS[i], 0);
+            }
         }
     }
 
@@ -361,17 +396,28 @@ public class GameScreenActivity extends ActionBarActivity {
     oppScore) are aggregated and added to the team's game here.
      */
     private void commitChanges() {
-
-        // Set the team stat to be the sum of all the player stats
         int curStatValue;
+        // Set the team stat to be the sum of all the player stats
         for (int i = 0; i < Player.REQUIRED_STATS.length; i++) {
-            curStatValue = 0;
-            for (Player player : players) {
-                curStatValue += (int) player.getGameStat(Player.REQUIRED_STATS[i]);
+            // We have to append all the shot coords lists together
+            if (Player.REQUIRED_STATS[i].equals("shotCoords")) {
+                ArrayList<Shot> teamShots = new ArrayList<Shot>();
+                for (Player player : players) {
+                    ArrayList<Shot> playerShots =
+                            (ArrayList<Shot>) player.getGameStat(Player.REQUIRED_STATS[i]);
+                    teamShots.addAll(playerShots);
+                }
+                team.setGameStat(Player.REQUIRED_STATS[i], teamShots);
             }
-            team.setGameStat(Player.REQUIRED_STATS[i], curStatValue);
+            // All other stats are just ints which need to be summed
+            else {
+                curStatValue = 0;
+                for (Player player : players) {
+                    curStatValue += (int) player.getGameStat(Player.REQUIRED_STATS[i]);
+                }
+                team.setGameStat(Player.REQUIRED_STATS[i], curStatValue);
+            }
         }
-
         dbHelper.updateStatEntity(team);
         for (Player player : players) {
             dbHelper.updateStatEntity(player);
