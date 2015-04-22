@@ -159,6 +159,8 @@ public class GameScreenActivity extends ActionBarActivity {
             }
         });
 
+        ((TextView) findViewById(R.id.txt_team_name)).setText((String) team.getAttr("teamName"));
+
         teamScoreDisplay = (TextView) findViewById(R.id.txt_team_score);
         oppScoreDisplay = (TextView) findViewById(R.id.txt_opponent_score);
         initializeStats();
