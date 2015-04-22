@@ -3,13 +3,17 @@ package com.cs495.bucketbuddy;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -41,7 +45,6 @@ public class GameScreenActivity extends ActionBarActivity {
         team = (Team) dbHelper.getStatEntity(teamId);
         players = new ArrayList<Player>();
         ArrayList<Long> playerIds = team.getPlayerIds();
-        Log.d("spinnerDebug", "found " + String.valueOf(playerIds.size()) + " playerIds");
         for (Long playerId : playerIds) {
             players.add((Player) dbHelper.getStatEntity(playerId));
         }
@@ -66,7 +69,42 @@ public class GameScreenActivity extends ActionBarActivity {
         findViewById(R.id.btn_rebound).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addStat("rebounds");
+                promptStatCredit("rebounds");
+            }
+        });
+
+        findViewById(R.id.btn_assist).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptStatCredit("assists");
+            }
+        });
+
+        findViewById(R.id.btn_steal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptStatCredit("steals");
+            }
+        });
+
+        findViewById(R.id.btn_block).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptStatCredit("blocks");
+            }
+        });
+
+        findViewById(R.id.btn_turnover).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptStatCredit("turnovers");
+            }
+        });
+
+        findViewById(R.id.btn_foul).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptStatCredit("fouls");
             }
         });
 
@@ -77,10 +115,42 @@ public class GameScreenActivity extends ActionBarActivity {
             }
         });
 
+        findViewById(R.id.btn_free_throw).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                promptStatCredit("fta");
+            }
+        });
+
         findViewById(R.id.btn_opp_score).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addStat("oppScore");
+                addOppScore();
+            }
+        });
+
+        findViewById(R.id.court).setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Figure out whether the touch lands in the (red) 2 point overlay
+                // or the (green) 3 point overlay and call the appropriate method
+                final int action = event.getAction();
+                final int evX = (int) event.getX();
+                final int evY = (int) event.getY();
+                int touchColor = getTouchColor(R.id.court_overlay, evX, evY);
+                switch (action) {
+                    case MotionEvent.ACTION_UP:
+                        if (closeMatchColor(Color.RED, touchColor, 25)) {
+                            // it's a 2 point attempt
+                            promptStatCredit("2pa");
+                        }
+                        else if (closeMatchColor(Color.GREEN, touchColor, 25)) {
+                            // it's a 3 point attempt
+                            promptStatCredit("3pa");
+                        }
+                        break;
+                }
+                return true;
             }
         });
 
@@ -118,31 +188,86 @@ public class GameScreenActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void addStat(final String statName) {
-        if (statName.equals("oppScore")) {
-            final CharSequence[] pointValues = new CharSequence[] {"1", "2", "3"};
-            selection = 1;
-            new AlertDialog.Builder(this)
-                    .setSingleChoiceItems(pointValues, 1, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            selection = which;
-                        }
-                    })
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            int newOppScore = (int) team.getGameStat("oppScore") +
-                                    Integer.parseInt((String) pointValues[selection]);
-                            team.setGameStat("oppScore", newOppScore);
-                            oppScoreDisplay.setText(String.valueOf(newOppScore));
+    /*
+    Determine the color of the given image at the given coordinates
+     */
+    private int getTouchColor(int hotspotId, int x, int y) {
+        ImageView img = (ImageView) findViewById (hotspotId);
+        img.setDrawingCacheEnabled(true);
+        Bitmap hotspots = Bitmap.createBitmap(img.getDrawingCache());
+        img.setDrawingCacheEnabled(false);
+        return hotspots.getPixel(x, y);
+    }
 
-                        }
-                    })
-                    .setTitle(R.string.set_point_value)
-                    .show();
-            return;
-        }
+    /*
+    Determine whether two colors match with the given tolerance
+     */
+    private boolean closeMatchColor(int color1, int color2, int tolerance) {
+        if ((int) Math.abs(Color.red(color1) - Color.red(color2)) > tolerance)
+            return false;
+        if ((int) Math.abs(Color.green(color1) - Color.green(color2)) > tolerance)
+            return false;
+        if ((int) Math.abs(Color.blue(color1) - Color.blue(color2)) > tolerance)
+            return false;
+        return true;
+    }
+
+    /*
+    Increase the other team's score by either 1, 2, or 3.  This change should be reflected
+    as both a stat in the team's game and on the scoreboard.
+     */
+    private void addOppScore() {
+        final CharSequence[] pointValues = new CharSequence[] {"1", "2", "3"};
+        selection = 1;
+        new AlertDialog.Builder(this)
+                .setSingleChoiceItems(pointValues, 1, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        selection = which;
+                    }
+                })
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int newOppScore = (int) team.getGameStat("oppScore") +
+                                Integer.parseInt((String) pointValues[selection]);
+                        team.setGameStat("oppScore", newOppScore);
+                        oppScoreDisplay.setText(String.valueOf(newOppScore));
+
+                    }
+                })
+                .setTitle(R.string.set_point_value)
+                .show();
+    }
+
+    /*
+    Increment the team's score by the given amount.  We don't have to worry about
+    saving it as a stat, since we can calculate it from the players' points.
+     */
+    private void addTeamScore(int amount) {
+        int newTeamScore = Integer.parseInt((String) teamScoreDisplay.getText()) + amount;
+        teamScoreDisplay.setText(String.valueOf(newTeamScore));
+    }
+
+    /*
+    Increment the given stat for the current attributed player.
+     */
+    private void addStat(final String statName) {
+        attributedPlayer.setGameStat(statName, (int) attributedPlayer.getGameStat(statName) + 1);
+    }
+
+    /*
+    Increase the given stat by the given amount for the current attributed player.
+     */
+    private void addStat(final String statName, int amount) {
+        attributedPlayer.setGameStat(statName, (int) attributedPlayer.getGameStat(statName) + amount);
+    }
+
+    /*
+    Ask the user who should be given credit for the given stat.  For 2PA/3PA/FTA, this also
+    entails finding out whether the shot was made or not.
+     */
+    private void promptStatCredit(final String statName) {
         CharSequence[] playerDisplay = new CharSequence[lineup.size()];
 
         for (int i = 0; i < lineup.size(); i++) {
@@ -159,13 +284,64 @@ public class GameScreenActivity extends ActionBarActivity {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        attributedPlayer.setGameStat(statName, (int) attributedPlayer.getGameStat(statName) + 1);
+                        addStat(statName);
+
+                        // If it was a shot attempt, we have to find out whether it was made
+                        if (statName.equals("2pa") || statName.equals("3pa") ||
+                                statName.equals("fta")) {
+                            promptStatMake(statName);
+                        }
+                        // Either a 2 point attempt or 3 point attempt also counts as a field goal
+                        // attempt
+                        if (statName.equals("2pa") || statName.equals("3pa")) {
+                            addStat("fga");
+                        }
                     }
                 })
                 .setTitle(R.string.credit_stat_title)
                 .show();
     }
 
+    /*
+    Ask the user whether the given attempt (2PA, 3PA, FTA) resulted in a make.  Then add the
+    corresponding make stat if necessary, as well as the points stat.
+     */
+    private void promptStatMake(final String statName) {
+        new AlertDialog.Builder(this)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (statName.equals("2pa")) {
+                            addStat("2pm");
+                            addStat("fgm");
+                            addStat("points",2);
+                            addTeamScore(2);
+                        } else if (statName.equals("3pa")) {
+                            addStat("3pm");
+                            addStat("fgm");
+                            addStat("points",3);
+                            addTeamScore(3);
+                        } else if (statName.equals("fta")) {
+                            addStat("ftm");
+                            addStat("points",1);
+                            addTeamScore(1);
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                })
+                .setTitle(R.string.prompt_make)
+                .show();
+    }
+
+    /*
+    Set each required stat for the team and all of its players to 0 so that we can just increment
+    them as we go without worrying about any of them being null.
+     */
     private void initializeStats() {
 
         // Start out each stat at 0
@@ -179,6 +355,11 @@ public class GameScreenActivity extends ActionBarActivity {
         }
     }
 
+    /*
+    Save all changes made to team/player state to the database.
+    Note: All team stats which are the sum of their player stats (i.e. everything except
+    oppScore) are aggregated and added to the team's game here.
+     */
     private void commitChanges() {
 
         // Set the team stat to be the sum of all the player stats
@@ -197,6 +378,9 @@ public class GameScreenActivity extends ActionBarActivity {
         }
     }
 
+    /*
+    Display a dialog box requesting confirmation for the user to actually end the game.
+     */
     private void confirmEndGame() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
@@ -213,6 +397,9 @@ public class GameScreenActivity extends ActionBarActivity {
                 .show();
     }
 
+    /*
+    Send the user back to the team list after committing changes to end the game.
+     */
     private void endGame() {
         commitChanges();
         Intent swap = new Intent(GameScreenActivity.this, TeamListActivity.class);
