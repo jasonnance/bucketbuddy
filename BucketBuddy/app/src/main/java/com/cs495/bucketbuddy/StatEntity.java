@@ -20,6 +20,8 @@ public abstract class StatEntity {
     public static final String[] REQUIRED_STATS = new String[] {"points","rebounds","assists",
             "ftm","fta","fouls","turnovers","blocks","steals","fgm","fga","2pm","2pa","3pm","3pa",
             "shotCoords"};
+    public static final String[] GRAPHABLE_STATS = new String[] {"points","rebounds","assists",
+            "ftm","fta","fouls","turnovers","blocks","steals","fgm","fga","2pm","2pa","3pm","3pa"};
 
     /**
      * Returns the last game in the last season, which is the current game

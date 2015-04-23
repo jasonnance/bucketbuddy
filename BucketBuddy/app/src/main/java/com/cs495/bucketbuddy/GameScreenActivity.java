@@ -200,6 +200,7 @@ public class GameScreenActivity extends ActionBarActivity {
      */
     private int getTouchColor(int hotspotId, int x, int y) {
         ImageView img = (ImageView) findViewById (hotspotId);
+        Log.d("touchDebug","touch x and y: " + String.valueOf(x) + " " + String.valueOf(y));
         img.setDrawingCacheEnabled(true);
         Bitmap hotspots = Bitmap.createBitmap(img.getDrawingCache());
         img.setDrawingCacheEnabled(false);

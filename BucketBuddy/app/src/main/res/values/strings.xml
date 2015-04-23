@@ -56,6 +56,16 @@
     <string name="opponent_score">Opp. Score</string>
     <string name="set_point_value">Set Point Value</string>
     <string name="prompt_make">Did the player make the shot?</string>
+    <string name="title_activity_view_entity_stats_tabbed">View Stats</string>
+
+    <string name="title_statsgraph">Stats Graph</string>
+    <string name="title_shotchart">Shot Chart</string>
+    <string name="title_activity_testtab">testtab</string>
+
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
 
 
 </resources>
