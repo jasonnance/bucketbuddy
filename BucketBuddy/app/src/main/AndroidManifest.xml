@@ -89,28 +89,12 @@
                 android:value="com.cs495.bucketbuddy.MainActivity" />
         </activity>
         <activity
-            android:name=".HelpCreateTeam"
-            android:label="@string/title_activity_help_create_team"
-            android:parentActivityName=".Help" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cs495.bucketbuddy.Help" />
-        </activity>
-        <activity
             android:name=".ViewEntityStatsTabbedActivity"
             android:label="@string/title_activity_view_entity_stats_tabbed"
             android:parentActivityName=".TeamListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs495.bucketbuddy.TeamListActivity" />
-        </activity>
-        <activity
-            android:name=".HelpGameScreen"
-            android:label="@string/title_activity_help_game_screen"
-            android:parentActivityName=".Help" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cs495.bucketbuddy.Help" />
         </activity>
     </application>
 
