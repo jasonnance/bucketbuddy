@@ -49,7 +49,7 @@ public class StatsGraph extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        v = inflater.inflate(R.layout.activity_view_entity_stats, container, false);
+        v = inflater.inflate(R.layout.fragment_stats_graph, container, false);
         long entityId = getActivity().getIntent().getExtras().getLong("entityId");
         entity = new DatabaseHelper(getActivity(), null, null, 1).getStatEntity(entityId);
         generateSpinner();

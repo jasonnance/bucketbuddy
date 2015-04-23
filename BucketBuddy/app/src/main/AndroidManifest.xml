@@ -69,15 +69,6 @@
                 android:value="com.cs495.bucketbuddy.TeamListActivity" />
         </activity>
         <activity
-            android:name=".ViewEntityStatsActivity"
-            android:label="@string/title_activity_view_entity_stats"
-            android:parentActivityName=".TeamListActivity"
-            android:screenOrientation="portrait" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.cs495.bucketbuddy.TeamListActivity" />
-        </activity>
-        <activity
             android:name=".SelectSeason"
             android:label="@string/title_activity_select_season"
             android:parentActivityName=".TeamListActivity" >

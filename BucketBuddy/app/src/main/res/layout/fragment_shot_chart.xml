@@ -22,4 +22,16 @@
             android:adjustViewBounds="true" />
 
     </FrameLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/season_select_spinner"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 </LinearLayout>
