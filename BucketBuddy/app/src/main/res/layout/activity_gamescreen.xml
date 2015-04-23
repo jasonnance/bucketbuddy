@@ -10,7 +10,7 @@
     android:orientation="vertical">
 
 
-        <TableLayout
+    <TableLayout
             android:layout_width="fill_parent"
             android:layout_height="60dp"
             android:stretchColumns="&quot;&quot;">
@@ -18,7 +18,8 @@
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:measureWithLargestChild="false">
+                android:measureWithLargestChild="false"
+                android:layout_weight="2">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -30,6 +31,14 @@
                     android:textColor="#FFFFFF"
                     android:layout_weight="1" />
 
+                <Button
+                    style="?android:attr/buttonStyleSmall"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Stats"
+                    android:id="@+id/btnStats"
+                    android:layout_weight="0.1" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -38,7 +47,13 @@
                     android:id="@+id/txt_opponent_name"
                     android:gravity="right"
                     android:textColor="#FFFFFF"
-                    android:layout_weight="1" />
+                    android:layout_weight="2" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
             </TableRow>
 
             <TableRow
@@ -66,6 +81,7 @@
                     android:gravity="right"
                     android:paddingRight="10dp" />
             </TableRow>
+
         </TableLayout>
 
         <TextView
