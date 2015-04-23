@@ -2,20 +2,24 @@
 <resources>
 
     <string name="app_name">Bucket Buddy</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="mainTeamBtn">Teams</string>
     <string name="mainHelpBtn">Help</string>
     <string name="mainAboutBtn">About</string>
     <string name="mainDeleteDbBtn">Delete Database</string>
+
+    <string name="teamList_create_btn">Create Team</string>
+
     <string name="aboutTxt">"Bucket Buddy" was idealized as a project for the class CS495 at
         The University of Alabama taking into consideration basketball fans and professionals in
         the area who want to keep personal data about their favorite teams.</string>
     <string name="aboutBios">https://jasonnance.github.io/bucketbuddy/bio.html</string>
-    <string name="deleteDb">Delete Database</string>
+
     <string name="reallyDeleteDb">Are you sure you want to delete the database?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="deleteDb">Delete Database</string>
+
     <string name="points">Points</string>
     <string name="rebounds">Rebounds</string>
     <string name="assists">Assists</string>
@@ -25,7 +29,6 @@
         From the Teams screen, press \"CREATE TEAM\". \n \nStep 3. From the Create Team screen,
         enter your desired team name and press \"SUBMIT\".  \n\n(At this point your team is created
         and you will be taken to the Edit Team screen where you can add players and edit the team name.)</string>
-
     <string name="help_title_create_player">Creating a player:</string>
     <string name="help_explain_create_player">(You must have a team created before you can create a player.)
         \n\nStep 1. If you are at the Teams screen, go to step 4. If you are not at the Teams screen,
@@ -35,13 +38,11 @@
         screen, type the name of the player and press \"SUBMIT\".\n\n(At this point your player has
         been created and associated with the team from which you added the player. You will be taken
         to the Edit Player screen where you can set his/her number and position.)</string>
-
     <string name="help_title_edit">Editing teams and players:</string>
     <string name="help_explain_edit">Step 1. From the Main Menu, press \"TEAMS\".\n\nStep 2. To edit
         a team, press the pencil icon next to the team you wish to edit.\n\nStep 3. To edit a player,
         press the down arrow to the left of the team that the player is on to expand the options for
         that teams\' players and press the pencil icon next to the desired player.</string>
-
     <string name="help_title_start">Starting a game:</string>
     <string name="help_explain_start">Step 1. From the Main Menu, press \"TEAMS\".\n\nStep 2. Locate
         your desired team and press the basketball backboard icon. You will be taken to the Select Season
@@ -52,7 +53,6 @@
         screen with the \"Select Lineup\" dialogue box showing and all of the players checked. Uncheck
         all players that will not be playing at the start of the game and press \"OK\".\n\nStep 5.
         Give yourself a pat on the back, you just started a game.</string>
-
     <string name="help_title_play">Playing a game (interacting with the game screen):</string>
     <string name="help_explain_play">Once you have started a game, you can interact with the Game screen
         to record events that have occurred in the game. The events that you record will be saved as
@@ -69,9 +69,23 @@
         (including the location of the attempt) will be updated accordingly.\n\nUpdating Other Stats:\t
         The rest of the events are located at the bottom of the screen and, once you press an event,
         you will be prompted for similar information as recording field goals.</string>
-
-    <string name="help_create_btn">Creating Teams and Players</string>
-    <string name="help_play_btn">Playing Games and Other</string>
+    <string name="help_title_viewStats">Viewing statistics:</string>
+    <string name="help_explain_viewStats">
+        Step 1. From the Main Menu, press \"Teams\".\n\nStep 2. To view
+        team stats, press the chart icon next to the team you wish to edit.\n\nStep 3. To view
+        player statistics, press the down arrow to the left of the team that the player is on to
+        expand the options for that teams\' players and press the chart icon next to the desired
+        player. (At this point, you should be on the View Stats screen. You can view different stats
+        by pressing the down arrow under the chart which will display a list of stats that you can
+        view.)</string>
+    <string name="help_title_deleteDB">About the database:</string>
+    <string name="help_explain_deleteDB">
+        Team and player information, including statistics, is stored locally in a database on your
+        device. You can delete teams or players from the database by pressing the \'X\' button
+        next to the team or player on the Teams screen. You can also delete the entire database
+        from the Main Menu by pressing \"Delete Database\". (Note: Once you delete the database,
+        all of the team and player information will be gone forever. You will be asked to confirm
+        if you want to delete the database.)</string>
 
     <string name="title_activity_create_team">Create a Team</string>
     <string name="title_activity_create_player">Create a Player</string>

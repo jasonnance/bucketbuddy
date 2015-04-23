@@ -34,7 +34,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:text="CREATE TEAM"
+        android:text="@string/teamList_create_btn"
         android:id="@+id/spawnCreateTeam"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
