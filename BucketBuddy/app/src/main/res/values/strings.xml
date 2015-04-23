@@ -81,6 +81,7 @@
 
     <string name="title_statsgraph">Stats Graph</string>
     <string name="title_shotchart">Shot Chart</string>
+
     <string name="title_activity_testtab">testtab</string>
     <string name="title_activity_help_create_team">Help: Creating and Editing</string>
 
@@ -89,6 +90,7 @@
     <string name="title_section3">Section 3</string>
     <string name="title_activity_help_game_screen">HelpGameScreen</string>
 
+    <string name="career">Career</string>
 
 
 </resources>

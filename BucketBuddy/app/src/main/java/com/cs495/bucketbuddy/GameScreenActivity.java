@@ -1,6 +1,9 @@
 package com.cs495.bucketbuddy;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -14,7 +17,12 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,6 +39,7 @@ public class GameScreenActivity extends ActionBarActivity {
     private int curShotY;
     private TextView teamScoreDisplay;
     private TextView oppScoreDisplay;
+    private ImageButton btnStats;
     private int selection;
 
     // Store the indices in the players list of the players currently on the floor
@@ -148,8 +157,7 @@ public class GameScreenActivity extends ActionBarActivity {
                         if (closeMatchColor(Color.RED, touchColor, 25)) {
                             // it's a 2 point attempt
                             promptStatCredit("2pa");
-                        }
-                        else if (closeMatchColor(Color.GREEN, touchColor, 25)) {
+                        } else if (closeMatchColor(Color.GREEN, touchColor, 25)) {
                             // it's a 3 point attempt
                             promptStatCredit("3pa");
                         }
@@ -165,6 +173,44 @@ public class GameScreenActivity extends ActionBarActivity {
         oppScoreDisplay = (TextView) findViewById(R.id.txt_opponent_score);
         initializeStats();
         lineupSelector.performClick();
+
+
+        btnStats = (ImageButton)findViewById(R.id.btnStats);
+        btnStats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
+
+    }
+
+    public void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setTitle("Select Changes");
+        ExpandableListView expList;
+        expList = new ExpandableListView(this);
+        final MyAdapter3 myAdapter = new MyAdapter3(this,team,players);
+        expList.setAdapter(myAdapter);
+        builder.setView(expList);
+        builder.setPositiveButton("Done",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                players = myAdapter.getChanges();
+                syncTeamScore();
+                commitChanges();
+
+
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setLayout(ActionBar.LayoutParams.FILL_PARENT, ActionBar.LayoutParams.FILL_PARENT);
+
+        dialog.show();
+
+
 
     }
 
@@ -199,8 +245,8 @@ public class GameScreenActivity extends ActionBarActivity {
     Determine the color of the given image at the given coordinates
      */
     private int getTouchColor(int hotspotId, int x, int y) {
-        ImageView img = (ImageView) findViewById (hotspotId);
-        Log.d("touchDebug","touch x and y: " + String.valueOf(x) + " " + String.valueOf(y));
+        ImageView img = (ImageView) findViewById(hotspotId);
+
         img.setDrawingCacheEnabled(true);
         Bitmap hotspots = Bitmap.createBitmap(img.getDrawingCache());
         img.setDrawingCacheEnabled(false);
@@ -225,7 +271,7 @@ public class GameScreenActivity extends ActionBarActivity {
     as both a stat in the team's game and on the scoreboard.
      */
     private void addOppScore() {
-        final CharSequence[] pointValues = new CharSequence[] {"1", "2", "3"};
+        final CharSequence[] pointValues = new CharSequence[]{"1", "2", "3"};
         selection = 1;
         new AlertDialog.Builder(this)
                 .setSingleChoiceItems(pointValues, 1, new DialogInterface.OnClickListener() {
@@ -255,6 +301,18 @@ public class GameScreenActivity extends ActionBarActivity {
     private void addTeamScore(int amount) {
         int newTeamScore = Integer.parseInt((String) teamScoreDisplay.getText()) + amount;
         teamScoreDisplay.setText(String.valueOf(newTeamScore));
+    }
+
+
+    /*
+    Sync the team's score with the players' edited stats
+     */
+    private void syncTeamScore() {
+        int score = 0;
+        for (Player player : players) {
+            score += (int) player.getGameStat("points");
+        }
+        teamScoreDisplay.setText(String.valueOf(score));
     }
 
     /*
@@ -326,15 +384,15 @@ public class GameScreenActivity extends ActionBarActivity {
                         }
                         if (statName.equals("2pa")) {
                             addStat("2pm");
-                            addStat("points",2);
+                            addStat("points", 2);
                             addTeamScore(2);
                         } else if (statName.equals("3pa")) {
                             addStat("3pm");
-                            addStat("points",3);
+                            addStat("points", 3);
                             addTeamScore(3);
                         } else if (statName.equals("fta")) {
                             addStat("ftm");
-                            addStat("points",1);
+                            addStat("points", 1);
                             addTeamScore(1);
                         }
                     }
@@ -358,7 +416,7 @@ public class GameScreenActivity extends ActionBarActivity {
     private void addShot(boolean made) {
         ArrayList<Shot> newShotCoords = (ArrayList<Shot>) attributedPlayer.getGameStat("shotCoords");
         newShotCoords.add(new Shot(curShotX, curShotY, made));
-        attributedPlayer.setGameStat("shotCoords",newShotCoords);
+        attributedPlayer.setGameStat("shotCoords", newShotCoords);
     }
 
     /*
@@ -386,8 +444,7 @@ public class GameScreenActivity extends ActionBarActivity {
             if (Team.REQUIRED_STATS[i].equals("shotCoords")) {
                 team.setGameStat(Team.REQUIRED_STATS[i],
                         new ArrayList<Shot>());
-            }
-            else {
+            } else {
                 team.setGameStat(Team.REQUIRED_STATS[i], 0);
             }
         }
@@ -435,8 +492,7 @@ public class GameScreenActivity extends ActionBarActivity {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setTitle(R.string.endGame)
                 .setMessage(R.string.reallyEndGame)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
-                {
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         endGame();
