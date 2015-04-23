@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class MainActivity extends ActionBarActivity {
 
-    Button btnTeams,btnStartGame,btnAbout, btnDeleteDb, btnHelp ;
+    Button btnTeams, btnStartGame, btnAbout, btnDeleteDb, btnHelp ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,6 @@ public class MainActivity extends ActionBarActivity {
             }
         });
 
-
         btnTeams.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,12 +41,14 @@ public class MainActivity extends ActionBarActivity {
                 MainActivity.this.startActivity(swap);
             }
         });
+
         btnDeleteDb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 spawnDeleteDatabaseDialog();
             }
         });
+
         btnHelp.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {

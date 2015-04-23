@@ -1,18 +1,45 @@
 package com.cs495.bucketbuddy;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.view.View;
+import android.widget.Button;
 
 public class Help extends ActionBarActivity {
+
+    Button btnHelpCreating, btnHelpPlaying;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
+        btnHelpCreating =(Button) findViewById(R.id.help_create);
+        btnHelpPlaying =(Button) findViewById(R.id.help_play);
+
+        btnHelpCreating.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent swap;
+                swap = new Intent(Help.this,HelpCreateTeam.class);
+                Help.this.startActivity(swap);
+            }
+        });
+
+        btnHelpPlaying.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent swap;
+                swap = new Intent(Help.this,HelpGameScreen.class);
+                Help.this.startActivity(swap);
+            }
+        });
     }
+
 
 
     @Override
