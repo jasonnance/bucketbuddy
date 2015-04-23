@@ -45,6 +45,12 @@
             android:text="@string/mainDeleteDbBtn"
             android:id="@+id/mainDeleteDbBtn" />
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/mainHelpBtn"
+            android:id="@+id/mainHelpBtn" />
+
     </LinearLayout>
 
 </RelativeLayout>

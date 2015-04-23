@@ -96,7 +96,8 @@
         <com.cs495.bucketbuddy.MultiSpinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/lineup_multispinner"/>
+            android:id="@+id/lineup_multispinner"
+            android:paddingBottom="40dp" />
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -107,17 +108,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/court"
                 android:src="@drawable/quadra"
-                android:layout_marginTop="-20dp"
-                android:layout_marginBottom="-40dp" />
+            android:adjustViewBounds="true" />
 
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/court_overlay"
             android:src="@drawable/quadra_overlay"
-            android:layout_marginTop="-20dp"
-            android:layout_marginBottom="-40dp"
-            android:visibility="invisible" />
+            android:visibility="invisible"
+            android:adjustViewBounds="true" />
 
     </FrameLayout>
 

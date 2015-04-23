@@ -1,0 +1,154 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.cs495.bucketbuddy.Help"
+    android:background="#CC3300">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Creating a team:"
+                android:id="@+id/textView7"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#0000ff"
+                android:layout_marginTop="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Step 1. From the Main Menu, press &quot;TEAMS&quot;. \n \nStep 2. From the Teams screen, press &quot;CREATE TEAM&quot;. \n \nStep 3. From the Create Team screen, enter your desired team name and press &quot;SUBMIT&quot;.  \n\n(At this point your team is created and you will be taken to the Edit Team screen where you can add players and edit the team name.)"
+                android:id="@+id/textView8"
+                android:layout_below="@+id/textView7"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"
+                android:textColor="#FFFFFF"
+                android:layout_marginLeft="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Creating a player:"
+                android:id="@+id/textView9"
+                android:layout_below="@+id/textView8"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#0000ff"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="(You must have a team created before you can create a player.)\n\nStep 1. If you are at the Teams screen, go to step 4. If you are not at the Teams screen, go to step 2.\n\nStep 2. From the Main Menu, press &quot;TEAMS&quot;.\n\nStep 3. From the Teams screen, locate the team you want to add the player to and press the pencil icon to the right of that team.\n\nStep 4. From the Edit Team screen, press &quot;ADD PLAYER&quot;.\n\nFrom the Create Player screen, type the name of the player and press &quot;SUBMIT&quot;.\n\n(At this point your player has been created and associated with the team from which you added the player. You will be taken to the Edit Player screen where you can set his/her number and position.)"
+                android:id="@+id/textView10"
+                android:layout_below="@+id/textView9"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignRight="@+id/textView8"
+                android:layout_alignEnd="@+id/textView8"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Editing teams and players:"
+                android:id="@+id/textView11"
+                android:layout_below="@+id/textView10"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#0000ff"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Step 1. From the Main Menu, press &quot;TEAMS&quot;.\n\nStep 2. To edit a team, press the pencil icon next to the team you wish to edit.\n\nStep 3. To edit a player, press the down arrow to the left of the team that the player is on to expand the options for that teams&apos; players and press the pencil icon next to the desired player."
+                android:id="@+id/textView12"
+                android:layout_below="@+id/textView11"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignRight="@+id/textView8"
+                android:layout_alignEnd="@+id/textView8"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Starting a game:"
+                android:id="@+id/textView13"
+                android:layout_below="@+id/textView12"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#0000ff"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Step 1. From the Main Menu, press &quot;TEAMS&quot;.\n\nStep 2. Locate your desired team and press the basketball backboard icon. You will be taken to the Select Season screen.\n\nStep 3. From the drop down menu, select either the most recent season or &quot;New Season&quot; (Make sure you want to start a new season before choosing &quot;New Season&quot; because stats are aggregated based on season, you can only play games with the most recent season, and you cannot undo creating a new season.) and press &quot;START GAME&quot;.\n\nStep 4. You should be at the game screen with the &quot;Select Lineup&quot; dialogue box showing and all of the players checked. Uncheck all players that will not be playing at the start of the game and press &quot;OK&quot;.\n\nStep 5. Give yourself a pat on the back, you just started a game."
+                android:id="@+id/textView14"
+                android:layout_below="@+id/textView13"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignRight="@+id/textView8"
+                android:layout_alignEnd="@+id/textView8"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Playing a game (interacting with the game screen):"
+                android:id="@+id/textView15"
+                android:layout_below="@+id/textView14"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#0000ff"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Once you have started a game, you can interact with the Game screen to record events that have occured in the game. The events that you record will be saved as statistics. You can always change your teams current lineup by pressing &quot;Current Linup&quot; above the interactive half-court image.\n\nOpponent events:\tThe only type of event from opponents that you can record are points scored. This is the button on the bottom right of the Game screen named &quot;Opp. Score&quot;. Once you press the button, you will be prompted to select 1, 2, or 3 points which will update the opponents score.\n\nField Goals:\tTo record a field goal attempt (whether it was made or missed) for a player on your team, press the location on the interactive half-court image on the Game Screen. You will be prompted to select the player, then whether or not the shot was made. Once this is complete the score and associated stats (including the location of the attempt) will be updated accordingly.\n\nUpdating Other Stats:\tThe rest of the events are located at the bottom of the screen and, once you press an event, you will be prompted for similar information as recording field goals."
+                android:id="@+id/textView16"
+                android:layout_below="@+id/textView15"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignRight="@+id/textView8"
+                android:layout_alignEnd="@+id/textView8"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:textColor="#ffffff"
+                android:singleLine="true" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

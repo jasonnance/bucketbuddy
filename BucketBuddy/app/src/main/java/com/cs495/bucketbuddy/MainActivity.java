@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class MainActivity extends ActionBarActivity {
 
-    Button btnTeams,btnStartGame,btnAbout, btnDeleteDb ;
+    Button btnTeams,btnStartGame,btnAbout, btnDeleteDb, btnHelp ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +22,7 @@ public class MainActivity extends ActionBarActivity {
         btnTeams = (Button) findViewById(R.id.mainTeamBtn);
         btnAbout = (Button) findViewById(R.id.mainAboutBtn);
         btnDeleteDb = (Button) findViewById(R.id.mainDeleteDbBtn);
+        btnHelp =(Button) findViewById(R.id.mainHelpBtn);
 
         btnAbout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,6 +46,14 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 spawnDeleteDatabaseDialog();
+            }
+        });
+        btnHelp.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent swap;
+                swap = new Intent(MainActivity.this,Help.class);
+                MainActivity.this.startActivity(swap);
             }
         });
 

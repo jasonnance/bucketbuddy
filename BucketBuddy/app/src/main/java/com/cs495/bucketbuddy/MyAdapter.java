@@ -155,7 +155,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 Intent swap;
-                swap = new Intent(context,ViewEntityStatsActivity.class );
+                swap = new Intent(context,ViewEntityStatsTabbedActivity.class );
                 Long teamId= parentList.get(groupPosition).getId();
                 swap.putExtra("entityId", teamId);
                 context.startActivity(swap);
@@ -220,7 +220,7 @@ public class MyAdapter extends BaseExpandableListAdapter {
             @Override
             public void onClick(View v) {
                 Intent swap;
-                swap = new Intent(context,ViewEntityStatsActivity.class );
+                swap = new Intent(context,ViewEntityStatsTabbedActivity.class );
                 Long playerID= playersID.get(groupPosition).get(childPosition);
                 swap.putExtra("entityId", playerID);
 

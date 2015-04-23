@@ -35,7 +35,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:textColor="#0a274f"
+            android:textColor="#0000ff"
             android:layout_gravity="center_vertical|right"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="0dp" />
