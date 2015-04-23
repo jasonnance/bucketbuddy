@@ -20,6 +20,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -38,7 +39,7 @@ public class GameScreenActivity extends ActionBarActivity {
     private int curShotY;
     private TextView teamScoreDisplay;
     private TextView oppScoreDisplay;
-    private Button btnStats;
+    private ImageButton btnStats;
     private int selection;
 
     // Store the indices in the players list of the players currently on the floor
@@ -174,7 +175,7 @@ public class GameScreenActivity extends ActionBarActivity {
         lineupSelector.performClick();
 
 
-        btnStats = (Button)findViewById(R.id.btnStats);
+        btnStats = (ImageButton)findViewById(R.id.btnStats);
         btnStats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
