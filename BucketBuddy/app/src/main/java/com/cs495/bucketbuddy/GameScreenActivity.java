@@ -197,6 +197,7 @@ public class GameScreenActivity extends ActionBarActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 players = myAdapter.getChanges();
+                syncTeamScore();
                 commitChanges();
 
 
@@ -299,6 +300,18 @@ public class GameScreenActivity extends ActionBarActivity {
     private void addTeamScore(int amount) {
         int newTeamScore = Integer.parseInt((String) teamScoreDisplay.getText()) + amount;
         teamScoreDisplay.setText(String.valueOf(newTeamScore));
+    }
+
+
+    /*
+    Sync the team's score with the players' edited stats
+     */
+    private void syncTeamScore() {
+        int score = 0;
+        for (Player player : players) {
+            score += (int) player.getGameStat("points");
+        }
+        teamScoreDisplay.setText(String.valueOf(score));
     }
 
     /*
