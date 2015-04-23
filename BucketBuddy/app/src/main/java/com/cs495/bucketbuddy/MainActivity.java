@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class MainActivity extends ActionBarActivity {
 
-    Button btnTeams, btnStartGame, btnAbout, btnDeleteDb, btnHelp ;
+    Button btnTeams, btnAbout, btnDeleteDb, btnHelp ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
