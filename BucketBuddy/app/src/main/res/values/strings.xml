@@ -8,7 +8,9 @@
     <string name="mainHelpBtn">Help</string>
     <string name="mainAboutBtn">About</string>
     <string name="mainDeleteDbBtn">Delete Database</string>
-    <string name="aboutTxt">"Bucket Buddy" was idealized as a project for the class CS495 at The University of Alabama taking into consideration basketball fans and professionals in the area who want to keep personal data about their favorite teams.</string>
+    <string name="aboutTxt">"Bucket Buddy" was idealized as a project for the class CS495 at
+        The University of Alabama taking into consideration basketball fans and professionals in
+        the area who want to keep personal data about their favorite teams.</string>
     <string name="aboutBios">https://jasonnance.github.io/bucketbuddy/bio.html</string>
     <string name="deleteDb">Delete Database</string>
     <string name="reallyDeleteDb">Are you sure you want to delete the database?</string>
@@ -19,21 +21,57 @@
     <string name="assists">Assists</string>
 
     <string name="help_title_create_team">Creating a team:</string>
-    <string name="help_explain_create_team">Step 1. From the Main Menu, press \"TEAMS\". \n \nStep 2. From the Teams screen, press \"CREATE TEAM\". \n \nStep 3. From the Create Team screen, enter your desired team name and press \"SUBMIT\".  \n\n(At this point your team is created and you will be taken to the Edit Team screen where you can add players and edit the team name.)</string>
+    <string name="help_explain_create_team">Step 1. From the Main Menu, press \"TEAMS\". \n \nStep 2.
+        From the Teams screen, press \"CREATE TEAM\". \n \nStep 3. From the Create Team screen,
+        enter your desired team name and press \"SUBMIT\".  \n\n(At this point your team is created
+        and you will be taken to the Edit Team screen where you can add players and edit the team name.)</string>
+
     <string name="help_title_create_player">Creating a player:</string>
-    <string name="help_explain_create_player">(You must have a team created before you can create a player.)\n\nStep 1. If you are at the Teams screen, go to step 4. If you are not at the Teams screen, go to step 2.\n\nStep 2. From the Main Menu, press \"TEAMS\".\n\nStep 3. From the Teams screen, locate the team you want to add the player to and press the pencil icon to the right of that team.\n\nStep 4. From the Edit Team screen, press \"ADD PLAYER\".\n\nFrom the Create Player screen, type the name of the player and press \"SUBMIT\".\n\n(At this point your player has been created and associated with the team from which you added the player. You will be taken to the Edit Player screen where you can set his/her number and position.)</string>
+    <string name="help_explain_create_player">(You must have a team created before you can create a player.)
+        \n\nStep 1. If you are at the Teams screen, go to step 4. If you are not at the Teams screen,
+        go to step 2.\n\nStep 2. From the Main Menu, press \"TEAMS\".\n\nStep 3. From the Teams screen,
+        locate the team you want to add the player to and press the pencil icon to the right of that
+        team.\n\nStep 4. From the Edit Team screen, press \"ADD PLAYER\".\n\nFrom the Create Player
+        screen, type the name of the player and press \"SUBMIT\".\n\n(At this point your player has
+        been created and associated with the team from which you added the player. You will be taken
+        to the Edit Player screen where you can set his/her number and position.)</string>
+
     <string name="help_title_edit">Editing teams and players:</string>
-    <string name="help_explain_edit">Step 1. From the Main Menu, press \"TEAMS\".\n\nStep 2. To edit a team, press the pencil icon next to the team you wish to edit.\n\nStep 3. To edit a player, press the down arrow to the left of the team that the player is on to expand the options for that teams\' players and press the pencil icon next to the desired player.</string>
+    <string name="help_explain_edit">Step 1. From the Main Menu, press \"TEAMS\".\n\nStep 2. To edit
+        a team, press the pencil icon next to the team you wish to edit.\n\nStep 3. To edit a player,
+        press the down arrow to the left of the team that the player is on to expand the options for
+        that teams\' players and press the pencil icon next to the desired player.</string>
+
     <string name="help_title_start">Starting a game:</string>
-    <string name="help_explain_start">Step 1. From the Main Menu, press \"TEAMS\".\n\nStep 2. Locate your desired team and press the basketball backboard icon. You will be taken to the Select Season screen.\n\nStep 3. From the drop down menu, select either the most recent season or \"New Season\" (Make sure you want to start a new season before choosing \"New Season\" because stats are aggregated based on season, you can only play games with the most recent season, and you cannot undo creating a new season.) and press \"START GAME\".\n\nStep 4. You should be at the game screen with the \"Select Lineup\" dialogue box showing and all of the players checked. Uncheck all players that will not be playing at the start of the game and press \"OK\".\n\nStep 5. Give yourself a pat on the back, you just started a game.</string>
+    <string name="help_explain_start">Step 1. From the Main Menu, press \"TEAMS\".\n\nStep 2. Locate
+        your desired team and press the basketball backboard icon. You will be taken to the Select Season
+        screen.\n\nStep 3. From the drop down menu, select either the most recent season or \"New Season\"
+        (Make sure you want to start a new season before choosing \"New Season\" because stats are
+        aggregated based on season, you can only play games with the most recent season, and you cannot
+        undo creating a new season.) and press \"START GAME\".\n\nStep 4. You should be at the game
+        screen with the \"Select Lineup\" dialogue box showing and all of the players checked. Uncheck
+        all players that will not be playing at the start of the game and press \"OK\".\n\nStep 5.
+        Give yourself a pat on the back, you just started a game.</string>
+
     <string name="help_title_play">Playing a game (interacting with the game screen):</string>
-    <string name="help_explain_play">Once you have started a game, you can interact with the Game screen to record events that have occurred in the game. The events that you record will be saved as statistics. You can always change your teams current lineup by pressing \"Current Lineup\" above the interactive half-court image.</string>
-    <string name="help_explain_play2">\n\nOpponent events:\tThe only type of event from opponents that you can record are points scored. This is the button on the bottom right of the Game screen named \"Opp. Score\". Once you press the button, you will be prompted to select 1, 2, or 3 points which will update the opponents score.</string>
-    <string name="help_explain_play3">\n\nField Goals:\tTo record a field goal attempt (whether it was made or missed) for a player on your team, press the location on the interactive half-court image on the Game Screen. You will be prompted to select the player, then whether or not the shot was made. Once this is complete the score and associated stats (including the location of the attempt) will be updated accordingly.\n\nUpdating Other Stats:\tThe rest of the events are located at the bottom of the screen and, once you press an event, you will be prompted for similar information as recording field goals.</string>
+    <string name="help_explain_play">Once you have started a game, you can interact with the Game screen
+        to record events that have occurred in the game. The events that you record will be saved as
+        statistics. You can always change your teams current lineup by pressing \"Current Lineup\"
+        above the interactive half-court image.
+    \n\nOpponent events:\tThe only type of event from opponents that you can record are points scored.
+        This is the button on the bottom right of the Game screen named \"Opp. Score\". Once you
+        press the button, you will be prompted to select 1, 2, or 3 points which will update the
+        opponents score.
+    \n\nField Goals:\tTo record a field goal attempt (whether it was made or missed) for a player on
+        your team, press the location on the interactive half-court image on the Game Screen. You will
+        be prompted to select the player, then whether or not the shot was made. Once this is complete
+        the score and associated stats
+        (including the location of the attempt) will be updated accordingly.\n\nUpdating Other Stats:\t
+        The rest of the events are located at the bottom of the screen and, once you press an event,
+        you will be prompted for similar information as recording field goals.</string>
+
     <string name="help_create_btn">Creating Teams and Players</string>
     <string name="help_play_btn">Playing Games and Other</string>
-
-
 
     <string name="title_activity_create_team">Create a Team</string>
     <string name="title_activity_create_player">Create a Player</string>

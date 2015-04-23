@@ -12,32 +12,12 @@ import android.widget.Button;
 
 public class Help extends ActionBarActivity {
 
-    Button btnHelpCreating, btnHelpPlaying;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-        btnHelpCreating =(Button) findViewById(R.id.help_create);
-        btnHelpPlaying =(Button) findViewById(R.id.help_play);
 
-        btnHelpCreating.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent swap;
-                swap = new Intent(Help.this,HelpCreateTeam.class);
-                Help.this.startActivity(swap);
-            }
-        });
-
-        btnHelpPlaying.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Intent swap;
-                swap = new Intent(Help.this,HelpGameScreen.class);
-                Help.this.startActivity(swap);
-            }
-        });
     }
 
 
