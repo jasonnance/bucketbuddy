@@ -93,6 +93,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.cs495.bucketbuddy.MainActivity" />
         </activity>
+        <activity
+            android:name=".ViewEntityStatsTabbedActivity"
+            android:label="@string/title_activity_view_entity_stats_tabbed"
+            android:parentActivityName=".TeamListActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.cs495.bucketbuddy.TeamListActivity" />
+        </activity>
     </application>
 
 </manifest>
